@@ -1,4 +1,8 @@
+using FluentValidation;
+using FluentValidation.AspNetCore;
+using ManageMe.Api.MediaRBehaviors;
 using ManageMe.Application;
+using ManageMe.Application.Services;
 using ManageMe.Infrastructure.Contexts;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
@@ -23,6 +27,14 @@ if (builder.Environment.IsDevelopment())
 else
     services.AddDbContext<ManageMeDbContext>(options 
         => options.UseSqlServer(configuration.GetConnectionString("ManageMeDatabase")));
+
+
+services.AddFluentValidationAutoValidation();
+services.AddValidatorsFromAssemblyContaining<ServiceAssemlyMarker>();
+services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
+
+services.AddScoped<IHashingService, HashingService>();
+services.AddScoped<IJwtService, JwtService>();
 
 services.AddMediatR(serviceConfiguration =>
 {
