@@ -1,21 +1,20 @@
 ﻿using ManageMe.Domain.Abstractions;
+using ManageMe.Domain.DomainEvents;
 
 namespace ManageMe.Domain.Entities;
 
-public class AccountEntity : IEntity
+public abstract class AccountEntity : Entity
 {
-    public Guid Id { get; set; }
-    public string Email { get; set; }
-
-    private AccountEntity(){ }
-    
-    public AccountEntity Create(string email)
+    protected AccountEntity(string email, string username)
     {
-        var createdEntity = new AccountEntity()
-        {
-            Email = email,
-        };
-
-        return createdEntity;
+        Username = username;
+        Email = email;
+        
+        AddDomainEvent(new CreateAccountDomainEvent());
     }
+
+    public Guid Id { get; set; }
+
+    public string Username { get; set; }
+    public string Email { get; set; }
 }
