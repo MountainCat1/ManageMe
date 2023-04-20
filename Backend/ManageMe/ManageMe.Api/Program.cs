@@ -2,8 +2,11 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using ManageMe.Api.MediaRBehaviors;
 using ManageMe.Application;
+using ManageMe.Application.Features.GoogleAuthentication;
 using ManageMe.Application.Services;
+using ManageMe.Domain.Repositories;
 using ManageMe.Infrastructure.Contexts;
+using ManageMe.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +20,8 @@ var configuration = builder.Configuration;
 
 var services = builder.Services;
 
+services.AddLogging();
+
 services.AddControllers();
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
@@ -28,6 +33,13 @@ else
     services.AddDbContext<ManageMeDbContext>(options 
         => options.UseSqlServer(configuration.GetConnectionString("ManageMeDatabase")));
 
+
+services.AddScoped<IAccountRepository, AccountRepository>();
+services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
+
+services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
+services.AddScoped<IHashingService, HashingService>();
+services.AddScoped<IJwtService, JwtService>();
 
 services.AddFluentValidationAutoValidation();
 services.AddValidatorsFromAssemblyContaining<ServiceAssemlyMarker>();
