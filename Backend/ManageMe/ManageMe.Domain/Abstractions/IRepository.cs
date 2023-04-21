@@ -25,4 +25,6 @@ public interface IRepository<TEntity> : IRepository where TEntity : Entity
     public Task<TEntity> AddAsync(TEntity entity);
     public Task<TEntity> UpdateAsync(object update, params object[] keys);
     public Task<Exception?> SaveChangesAsync();
+
+
 }
