@@ -1,6 +1,5 @@
 ﻿using Google.Apis.Auth;
 using ManageMe.Application.Settings;
-using ManageMe.Domain.Entities;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 

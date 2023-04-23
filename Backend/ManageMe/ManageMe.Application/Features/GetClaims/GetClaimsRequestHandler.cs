@@ -1,5 +1,4 @@
 ﻿using System.Security.Claims;
-using Catut;
 using ManageMe.Application.Dtos.Responses;
 using MediatR;
 

@@ -1,5 +1,4 @@
-﻿using ManageMe.Domain.Abstractions;
-using ManageMe.Domain.Entities;
+﻿using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 using ManageMe.Infrastructure.Contexts;
 using ManageMe.Infrastructure.Generics;

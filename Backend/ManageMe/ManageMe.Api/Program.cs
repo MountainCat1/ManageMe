@@ -8,11 +8,7 @@ using ManageMe.Domain.Repositories;
 using ManageMe.Infrastructure.Contexts;
 using ManageMe.Infrastructure.Repositories;
 using MediatR;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
 var builder = WebApplication.CreateBuilder(args);
 

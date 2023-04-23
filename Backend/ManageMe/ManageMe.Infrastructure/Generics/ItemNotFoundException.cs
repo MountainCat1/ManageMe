@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace ManageMe.Infrastructure.Generics;
+﻿namespace ManageMe.Infrastructure.Generics;
 
 public class ItemNotFoundException : Exception
 {
