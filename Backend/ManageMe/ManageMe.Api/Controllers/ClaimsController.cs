@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ManageMe.Api.Controllers;
 
+[ApiController]
+[Route("/api/claims")]
 public class ClaimsController : Controller
 {
     private IMediator _mediator;
