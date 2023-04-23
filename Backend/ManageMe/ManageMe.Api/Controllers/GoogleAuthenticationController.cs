@@ -1,4 +1,6 @@
-﻿using ManageMe.Api.Extensions;
+﻿using Catut;
+using ManageMe.Api.Extensions;
+using ManageMe.Application.Dtos.Responses;
 using ManageMe.Application.Features.GoogleAuthentication;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -6,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace ManageMe.Api.Controllers;
 
 [ApiController]
-[Route("api/authentication/google")]
+[Route("api/auth/google")]
 public class GoogleAuthentication : Controller
 {
     private IMediator _mediator;
@@ -27,7 +29,7 @@ public class GoogleAuthentication : Controller
     }
 
 
-    [HttpPost("auth")]
+    [HttpPost()]
     public async Task<IActionResult> Authenticate([FromBody] AuthiViaGoogleRequestContract contract)
     {
         var mediatorRequest = new AuthiViaGoogleRequest
@@ -35,7 +37,7 @@ public class GoogleAuthentication : Controller
             GoogleAuthToken = contract.AuthToken
         };
 
-        var result = await _mediator.Send(mediatorRequest);
+        Result<AuthTokenResponseContract> result = await _mediator.Send(mediatorRequest);
 
         return result.ToOk();
     }

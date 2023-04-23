@@ -22,7 +22,7 @@ public class ClaimsController : Controller
     {
         var mediatorResuest = new GetClaimsRequest(User);
 
-        var resultDto = await _mediator.Send(mediatorResuest);
+        GetClaimsResponseDto resultDto = await _mediator.Send(mediatorResuest);
 
         return Ok(resultDto);
     }

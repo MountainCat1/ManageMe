@@ -30,7 +30,10 @@ public static class ResultExtensions
         return result.Match<IActionResult>(
             Succ: obj =>
             {
-                return new StatusCodeResult(statusCode);
+                return new ObjectResult(obj)
+                {
+                    StatusCode = statusCode
+                };
             },
             Fail: exception =>
             {
@@ -63,6 +66,8 @@ public static class ResultExtensions
         {
             return new UnauthorizedObjectResult(ex);
         }
+
+        throw exception;
         
         return new StatusCodeResult(500);
     }
