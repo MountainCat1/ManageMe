@@ -7,12 +7,16 @@ import { PageComponent } from './page/page.component';
 import { GoogleAuthComponent } from './google-auth/google-auth.component';
 import {GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig} from "@abacritt/angularx-social-login";
 import {HttpClientModule} from "@angular/common/http";
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     PageComponent,
-    GoogleAuthComponent
+    GoogleAuthComponent,
+    SignInComponent,
+    SignUpComponent
   ],
   imports: [
     BrowserModule,
