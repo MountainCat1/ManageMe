@@ -1,7 +1,7 @@
 import {inject, Injectable, NgModule} from '@angular/core';
 import {
   ActivatedRouteSnapshot,
-  CanActivate, CanActivateChildFn,
+  CanActivateChildFn,
   CanActivateFn,
   Router,
   RouterModule,
@@ -51,7 +51,9 @@ const PUBLIC_ROUTES: Routes = [
   {path: 'sign-in', component: SignInComponent}
 ]
 
-const SECURE_ROUTES: Routes = []
+const SECURE_ROUTES: Routes = [
+
+]
 
 const APP_ROUTES: Routes = [
   // { path: '', redirectTo: '', pathMatch: 'full', },
@@ -71,6 +73,3 @@ export class AppRoutingModule {
   }
 
 }
-
-
-export const canActivateChild: CanActivateChildFn = (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => guard(route, state);

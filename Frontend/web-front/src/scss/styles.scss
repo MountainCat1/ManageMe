@@ -2,7 +2,8 @@
 
 @import url('https://fonts.googleapis.com/css?family=Inter:400,700|Montserrat:400,700&display=swap');
 @import "./variables";
-@import "panel";
+@import "./pop-up";
+
 
 
 :root {
@@ -16,9 +17,14 @@
   --font-size-large: 24px;
 }
 
+
+
 body {
   font-family: var(--font-body);
   font-size: var(--font-size-medium);
+
+  padding: 0;
+  margin: 0;
 }
 
 h1, h2, h3, h4, h5, h6 {
