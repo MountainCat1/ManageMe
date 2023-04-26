@@ -9,6 +9,9 @@ import {GoogleLoginProvider, GoogleSigninButtonModule, SocialAuthServiceConfig} 
 import {HttpClientModule} from "@angular/common/http";
 import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import { SecureComponent } from './secure/secure.component';
+import { PublicComponent } from './public/public.component';
 
 @NgModule({
   declarations: [
@@ -16,13 +19,16 @@ import { SignUpComponent } from './sign-up/sign-up.component';
     PageComponent,
     GoogleAuthComponent,
     SignInComponent,
-    SignUpComponent
+    SignUpComponent,
+    HomePageComponent,
+    SecureComponent,
+    PublicComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     GoogleSigninButtonModule,
-    HttpClientModule
+    HttpClientModule,
   ],
   providers: [
     {

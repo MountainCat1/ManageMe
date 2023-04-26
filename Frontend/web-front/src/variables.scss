@@ -1,0 +1,51 @@
+﻿:root {
+  // Light mode colors
+  --color-primary: #4d4dff; // blue
+  --color-secondary: #ff7f50; // orange
+  --color-accent: #8a2be2; // purple
+  --color-background: #f2f2f2; // light gray
+  --color-text: #333; // dark gray
+  --color-text-light: #777; // light gray
+  --color-text-accent: #fff; // white
+  --color-button-primary: var(--color-primary);
+  --color-button-secondary: var(--color-secondary);
+  --color-button-accent: var(--color-accent);
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-accent);
+  --color-form-background: #fff; // white
+  --color-form-border: #ddd; // light gray
+  --color-form-input-background: #f9f9f9; // lightest gray
+  --color-form-input-border: #ccc; // medium gray
+  --color-form-input-focus-border: var(--color-primary); // blue
+  --color-accent-1: #fbb03b; // yellow
+  --color-accent-2: #e5497a; // pink
+  --color-accent-3: #00b7ff; // light blue
+}
+
+
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #236aff; // darker blue
+    --color-secondary: #ff7733; // darker orange
+    --color-accent: #b000e6; // darker purple
+    --color-background: #111; // dark gray
+    --color-text: #f2f2f2; // light gray
+    --color-text-light: #aaa; // medium gray
+    --color-text-accent: #fff; // white
+    --color-button-primary: var(--color-primary);
+    --color-button-secondary: var(--color-secondary);
+    --color-button-accent: var(--color-accent);
+    --color-link: var(--color-primary);
+    --color-link-hover: var(--color-accent);
+    --color-form-background: #222; // dark gray
+    --color-form-border: #444; // medium gray
+    --color-form-input-background: #333; // darker gray
+    --color-form-input-border: #666; // light gray
+    --color-form-input-focus-border: var(--color-primary); // darker blue
+    --color-accent-1: #ffb703; // darker yellow
+    --color-accent-2: #ff5c8d; // darker pink
+    --color-accent-3: #00e3ff; // brighter light blue
+  }
+}
+

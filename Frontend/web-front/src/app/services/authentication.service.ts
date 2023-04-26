@@ -3,7 +3,7 @@ import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "src/environments/environment";
-import {firstValueFrom} from "rxjs";
+import {catchError, firstValueFrom, map, Observable, of} from "rxjs";
 import 'url-join';
 import urlJoin from "url-join";
 import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
@@ -87,5 +87,37 @@ export class AuthenticationService {
       console.error(error);
       return undefined;
     }
+  }
+
+  logout(): void {
+    // Remove user authentication data from storage
+    localStorage.removeItem('auth_token');
+  }
+
+  isLoggedIn(): boolean {
+    // Check if user authentication data exists in storage
+    return !!localStorage.getItem('auth_token');
+  }
+
+  hasAuthToken() : boolean {
+    return !!this._cookieService.get("auth_token");
+  }
+
+  checkLogin(): Observable<boolean> {
+
+    if(!this.hasAuthToken())
+      return of(false)
+
+    // Make an API request to check if the user is logged in
+    return this.http.get<boolean>(`${this.apiUri}/check-login`).pipe(
+      map((response) => {
+        // User is logged in
+        return response;
+      }),
+      catchError(() => {
+        // User is not logged in
+        return of(false);
+      })
+    );
   }
 }
