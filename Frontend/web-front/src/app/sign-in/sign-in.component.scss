@@ -1,7 +1,16 @@
 @import "/src/scss/pop-up";
+@import "/src/scss/panel";
 
 :host {
   @extend .pop-up;
 
+}
+
+.google-auth-container {
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+  padding: 5em;
 }
 

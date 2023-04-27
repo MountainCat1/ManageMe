@@ -12,7 +12,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SecureComponent } from './secure/secure.component';
 import { PublicComponent } from './public/public.component';
-import { PopUpComponent } from './pop-up/pop-up.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -24,14 +24,14 @@ import { PopUpComponent } from './pop-up/pop-up.component';
     HomePageComponent,
     SecureComponent,
     PublicComponent,
-    PopUpComponent,
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    GoogleSigninButtonModule,
-    HttpClientModule,
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        GoogleSigninButtonModule,
+        HttpClientModule,
+        FormsModule,
+    ],
   providers: [
     {
     provide: 'SocialAuthServiceConfig',
