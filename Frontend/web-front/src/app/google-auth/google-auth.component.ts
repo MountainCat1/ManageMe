@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, EventEmitter, Output} from '@angular/core';
 import {GoogleLoginProvider, SocialAuthService} from "@abacritt/angularx-social-login";
 import {AuthenticationService} from "../services/authentication.service";
 import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
+import {AuthenticatedEvent} from "./authenticated.event";
 
 @Component({
   selector: 'app-google-auth',
@@ -11,6 +12,9 @@ import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestCon
 export class GoogleAuthComponent {
   user: any;
   loggedIn: any;
+
+  @Output()
+  authenticated : EventEmitter<AuthenticatedEvent> = new EventEmitter<AuthenticatedEvent>()
 
 
   constructor(private _socialAuthService: SocialAuthService,
@@ -28,7 +32,7 @@ export class GoogleAuthComponent {
       let authRequest: AuthViaGoogleRequestContract = {
         authToken: this.user.idToken,
       }
-      this._authService.authUser(authRequest)
+      this._authService.authUser(authRequest).then(x => this.authenticated.emit())
     });
   }
 
@@ -39,6 +43,8 @@ export class GoogleAuthComponent {
       this.user = user;
       this.loggedIn = true;
       console.log(this.user);
+
+
     });
   }
 
@@ -63,3 +69,5 @@ export class GoogleAuthComponent {
     console.log(claims)
   }
 }
+
+

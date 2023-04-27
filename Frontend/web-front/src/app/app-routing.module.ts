@@ -13,6 +13,7 @@ import {catchError, map, of} from "rxjs";
 import {PublicComponent} from "./public/public.component";
 import {SecureComponent} from "./secure/secure.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
+import {HomePageComponent} from "./home-page/home-page.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -22,7 +23,11 @@ const guard: CanActivateFn = (
   const router = inject(Router);
 
   return authService.checkLogin().pipe(
-    map(() => {
+    map((authenticated) => {
+      if(authenticated)
+        return true;
+
+
       router.navigate(['../sign-in']).then(success => {
         if (success) {
           // Navigation was successful, do something here
@@ -33,7 +38,6 @@ const guard: CanActivateFn = (
       return true
     }),
     catchError(() => {
-      console.log('routing ')
       router.navigate(['../sign-in']).then(success => {
         if (success) {
           // Navigation was successful, do something here
@@ -52,7 +56,7 @@ const PUBLIC_ROUTES: Routes = [
 ]
 
 const SECURE_ROUTES: Routes = [
-
+  {path: 'home', component: HomePageComponent}
 ]
 
 const APP_ROUTES: Routes = [

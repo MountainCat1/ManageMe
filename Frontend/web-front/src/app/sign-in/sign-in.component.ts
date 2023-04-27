@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import {Component, Inject} from '@angular/core';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sign-in',
@@ -6,5 +7,15 @@ import { Component } from '@angular/core';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
+  private router: Router;
 
+  constructor(
+    router: Router
+  ) {
+    this.router = router;
+  }
+
+  public OnAuthenticated(){
+    this.router.navigate(['/home']);
+  }
 }

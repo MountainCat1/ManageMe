@@ -23,8 +23,17 @@ body {
   font-family: var(--font-body);
   font-size: var(--font-size-medium);
 
+  background-color: var(--color-background);
+  color: var(--color-text);
+
   padding: 0;
   margin: 0;
+}
+
+
+// disable stupid shit made by google fsfr
+body #g_a11y_announcement{
+  display: none;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -32,8 +41,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 body {
-  background-color: var(--color-background);
-  color: var(--color-text);
+
 }
 
 button {

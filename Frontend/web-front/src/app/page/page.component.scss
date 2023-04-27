@@ -4,4 +4,7 @@
   min-height: 100vh;
   display: block;
   width: 40rem;
+  box-sizing: border-box;
+
+  overflow-x: hidden;
 }

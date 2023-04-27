@@ -2,7 +2,7 @@
   <h1>Sign in via Google!</h1>
 
   <div class="google-auth-container">
-    <app-google-auth></app-google-auth>
+    <app-google-auth (authenticated)="OnAuthenticated()"></app-google-auth>
   </div>
 </div>
 

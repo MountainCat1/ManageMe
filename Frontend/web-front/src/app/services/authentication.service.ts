@@ -108,16 +108,18 @@ export class AuthenticationService {
     if(!this.hasAuthToken())
       return of(false)
 
+
+    return of(true);
     // Make an API request to check if the user is logged in
-    return this.http.get<boolean>(`${this.apiUri}/check-login`).pipe(
-      map((response) => {
-        // User is logged in
-        return response;
-      }),
-      catchError(() => {
-        // User is not logged in
-        return of(false);
-      })
-    );
+    // return this.http.get<boolean>(`${this.apiUri}/check-login`).pipe(
+    //   map((response) => {
+    //     // User is logged in
+    //     return response;
+    //   }),
+    //   catchError(() => {
+    //     // User is not logged in
+    //     return of(false);
+    //   })
+    // );
   }
 }
