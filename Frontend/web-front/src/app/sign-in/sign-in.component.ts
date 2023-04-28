@@ -9,6 +9,8 @@ import {Router} from "@angular/router";
 export class SignInComponent {
   private router: Router;
 
+  public loading : boolean = false;
+
   constructor(
     router: Router
   ) {
@@ -16,6 +18,12 @@ export class SignInComponent {
   }
 
   public OnAuthenticated(){
+    console.log('XD')
+    this.loading = false;
     this.router.navigate(['/home']);
+  }
+
+  public OnAuthenticationStarted(){
+    this.loading = true;
   }
 }

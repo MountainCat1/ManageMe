@@ -13,8 +13,8 @@ export class GoogleAuthComponent {
   user: any;
   loggedIn: any;
 
-  @Output()
-  authenticated : EventEmitter<AuthenticatedEvent> = new EventEmitter<AuthenticatedEvent>()
+  @Output() authenticated: EventEmitter<any> = new EventEmitter<any>()
+  @Output() authenticationStarted: EventEmitter<any> = new EventEmitter<any>()
 
 
   constructor(private _socialAuthService: SocialAuthService,
@@ -26,25 +26,27 @@ export class GoogleAuthComponent {
     this._socialAuthService.authState.subscribe((user) => {
       this.user = user;
       this.loggedIn = (user != null);
-      console.log(this.user)
 
+      this.authenticationStarted.emit();
 
       let authRequest: AuthViaGoogleRequestContract = {
         authToken: this.user.idToken,
       }
-      this._authService.authUser(authRequest).then(x => this.authenticated.emit())
+      this._authService.authUser(authRequest).then(x => {
+        this.authenticated.emit();
+      })
     });
+
   }
 
 
   signInWithGoogle(): void {
+
     const headers = {'Referrer-Policy': 'strict-origin-when-cross-origin'};
     this._socialAuthService.signIn(GoogleLoginProvider.PROVIDER_ID, {headers}).then((user) => {
       this.user = user;
       this.loggedIn = true;
       console.log(this.user);
-
-
     });
   }
 
@@ -65,7 +67,7 @@ export class GoogleAuthComponent {
   }
 
   public async getClaims() {
-    let claims =  await this._authService.getClaims();
+    let claims = await this._authService.getClaims();
     console.log(claims)
   }
 }

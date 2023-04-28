@@ -3,7 +3,7 @@ import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "src/environments/environment";
-import {catchError, firstValueFrom, map, Observable, of} from "rxjs";
+import {catchError, delay, firstValueFrom, map, Observable, of} from "rxjs";
 import 'url-join';
 import urlJoin from "url-join";
 import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
@@ -32,6 +32,7 @@ export class AuthenticationService {
       let headers: any = {
         // 'Authorization': `Bearer ${authRequest.token}`
       };
+
 
       let responseContract = await firstValueFrom(this.http.post<AuthTokenResponseContract>(urlJoin(this.apiUri, "auth/google"), authRequest, {
         responseType: 'json',

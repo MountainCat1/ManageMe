@@ -2,7 +2,14 @@
   <h1>Sign in via Google!</h1>
 
   <div class="google-auth-container">
-    <app-google-auth (authenticated)="OnAuthenticated()"></app-google-auth>
+    <app-google-auth
+      (authenticated)="OnAuthenticated()"
+      (authenticationStarted)="OnAuthenticationStarted()"
+    ></app-google-auth>
+    <div
+      *ngIf="loading"
+      class="lds-dual-ring">
+    </div>
   </div>
 </div>
 
