@@ -18,7 +18,6 @@ export class SignInComponent {
   }
 
   public OnAuthenticated(){
-    console.log('XD')
     this.loading = false;
     this.router.navigate(['/home']);
   }

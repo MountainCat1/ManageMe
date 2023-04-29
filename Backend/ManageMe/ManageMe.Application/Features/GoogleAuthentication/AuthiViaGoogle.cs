@@ -6,6 +6,7 @@ using ManageMe.Application.Dtos.Responses;
 using ManageMe.Application.Services;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
+using NotFoundError = ManageMe.Application.Errors.NotFoundError;
 
 namespace ManageMe.Application.Features.GoogleAuthentication;
 

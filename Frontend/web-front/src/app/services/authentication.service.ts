@@ -3,7 +3,7 @@ import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {environment} from "src/environments/environment";
-import {catchError, delay, firstValueFrom, map, Observable, of} from "rxjs";
+import {catchError, delay, firstValueFrom, map, NotFoundError, Observable, of} from "rxjs";
 import 'url-join';
 import urlJoin from "url-join";
 import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
@@ -33,8 +33,9 @@ export class AuthenticationService {
         // 'Authorization': `Bearer ${authRequest.token}`
       };
 
+      const uri = urlJoin(this.apiUri, "auth/google");
 
-      let responseContract = await firstValueFrom(this.http.post<AuthTokenResponseContract>(urlJoin(this.apiUri, "auth/google"), authRequest, {
+      let responseContract = await firstValueFrom(this.http.post<AuthTokenResponseContract>(uri, authRequest, {
         responseType: 'json',
         headers: headers
       }));
@@ -67,6 +68,45 @@ export class AuthenticationService {
       return;
     }
   }
+
+  // public async authOrRegister(authRequest: AuthViaGoogleRequestContract): Promise<void> {
+  //   try {
+  //     // Fetch user token from backend
+  //     let headers: any = {
+  //       // 'Authorization': `Bearer ${authRequest.token}`
+  //     };
+  //
+  //     const uri = urlJoin(this.apiUri, "auth/google");
+  //
+  //     const request = this.http.post<AuthTokenResponseContract>(uri, authRequest, {
+  //       responseType: 'json',
+  //       headers: headers
+  //     });
+  //
+  //     request.subscribe({
+  //       error: err => {
+  //         if(err instanceof NotFoundError){
+  //           this.registerUser(authRequest);
+  //           this.authUser(authRequest);
+  //         }
+  //       }
+  //     })
+  //
+  //     const response = await firstValueFrom(responseObs);
+  //
+  //     let responseContract = await ();
+  //
+  //     // Set token to cookies
+  //     this._cookieService.set("auth_token", responseContract.authToken);
+  //
+  //     // Return token
+  //     return responseContract.authToken
+  //
+  //   } catch (error) {
+  //     console.error(error);
+  //     return undefined;
+  //   }
+  // }
 
   public async getClaims(): Promise<ClaimDto[] | undefined> {
     try {

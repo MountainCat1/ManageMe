@@ -13,6 +13,7 @@ import { HomePageComponent } from './home-page/home-page.component';
 import { SecureComponent } from './secure/secure.component';
 import { PublicComponent } from './public/public.component';
 import {FormsModule} from "@angular/forms";
+import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import {FormsModule} from "@angular/forms";
     HomePageComponent,
     SecureComponent,
     PublicComponent,
+    NavBarComponent,
   ],
     imports: [
         BrowserModule,
