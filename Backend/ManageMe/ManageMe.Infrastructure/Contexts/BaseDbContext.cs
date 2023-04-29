@@ -16,6 +16,7 @@ public class ManageMeDbContext : DbContext
         
         // == ACCOUNTS
         modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
+        modelBuilder.Entity<AccountEntity>().HasMany<ProjectEntity>(x => x.Projects);
         modelBuilder.Entity<AccountEntity>().HasDiscriminator<string>("discriminator")
             .HasValue<GoogleAccountEntity>("google");
         
@@ -25,8 +26,14 @@ public class ManageMeDbContext : DbContext
         
         // username
         modelBuilder.Entity<AccountEntity>().Property(x => x.Username).IsRequired();
+        
+        // == PROJECTS
+        modelBuilder.Entity<ProjectEntity>().HasKey(x => x.Id);
+        modelBuilder.Entity<ProjectEntity>().HasMany<AccountEntity>(x => x.Members);
     }
 
-    public DbSet<AccountEntity> AccountEntities { get; set; }
-    public DbSet<GoogleAccountEntity> GoogleAccountEntities { get; set; }
+    public DbSet<AccountEntity> Accounts { get; set; }
+    public DbSet<GoogleAccountEntity> GoogleAccounts { get; set; }
+    
+    public DbSet<ProjectEntity> Projects { get; set; }
 }

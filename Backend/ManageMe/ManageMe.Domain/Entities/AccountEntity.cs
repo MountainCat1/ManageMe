@@ -17,4 +17,5 @@ public abstract class AccountEntity : Entity
 
     public string Username { get; set; }
     public string Email { get; set; }
+    public virtual IEnumerable<ProjectEntity> Projects { get; set; }
 }
