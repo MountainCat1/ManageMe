@@ -21,13 +21,13 @@ public class TaskItem
     public DateTime? CompletedDate { get; set; }
 
 
-    public string AssignedUserId { get; set; }
+    public Guid AssignedUserId { get; set; }
     public virtual AccountEntity AssignedUser { get; set; }
 
-    public string FunctionalityId { get; set; }
+    public Guid FunctionalityId { get; set; }
     public virtual FunctionalityEntity Functionality { get; set; }
 
-    private TaskItem(string name, string description, int priority, string functionalityId, int estimatedTime,
+    private TaskItem(string name, string description, int priority, Guid functionalityId, int estimatedTime,
         DateTime? startedDate, DateTime? completedDate)
     {
         Name = name;
@@ -39,7 +39,7 @@ public class TaskItem
         CompletedDate = completedDate;
     }
 
-    public static TaskItem Create(string name, string description, int priority, string functionality,
+    public static TaskItem Create(string name, string description, int priority, Guid functionality,
         int estimatedTime, DateTime? startedDate, DateTime? completedDate)
     {
         var newEntity = new TaskItem(name, description, priority, functionality, estimatedTime, startedDate,

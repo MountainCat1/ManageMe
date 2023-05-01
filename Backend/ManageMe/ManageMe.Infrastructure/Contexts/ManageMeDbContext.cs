@@ -7,7 +7,6 @@ public class ManageMeDbContext : DbContext
 {
     public ManageMeDbContext(DbContextOptions<ManageMeDbContext> options) : base(options)
     {
-
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -43,21 +42,25 @@ public class ManageMeDbContext : DbContext
         modelBuilder.Entity<FunctionalityEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<FunctionalityEntity>().HasOne<ProjectEntity>(x => x.Project)
             .WithMany(x => x.Funcionalities)
-            .HasForeignKey(x => x.ProjectId);
+            .HasForeignKey(x => x.ProjectId)
+            .OnDelete(DeleteBehavior.Cascade);
         modelBuilder.Entity<FunctionalityEntity>().HasOne<AccountEntity>(x => x.Owner)
             .WithMany(x => x.Functionalities)
-            .HasForeignKey(x => x.OwnerId);
+            .HasForeignKey(x => x.OwnerId)
+            .OnDelete(DeleteBehavior.Restrict);
         
          
         // == TASK ITEM
         modelBuilder.Entity<TaskItem>().HasKey(x => x.Id);
         modelBuilder.Entity<TaskItem>().HasOne<FunctionalityEntity>(x => x.Functionality)
             .WithMany(x => x.TaskItems)
-            .HasForeignKey(x => x.FunctionalityId);
+            .HasForeignKey(x => x.FunctionalityId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         modelBuilder.Entity<TaskItem>().HasOne<AccountEntity>(x => x.AssignedUser)
             .WithMany(x => x.TaskItems)
-            .HasForeignKey(x => x.AssignedUserId);
+            .HasForeignKey(x => x.AssignedUserId)
+            .OnDelete(DeleteBehavior.Restrict);
     }
 
     public DbSet<AccountEntity> Accounts { get; set; }
@@ -66,4 +69,8 @@ public class ManageMeDbContext : DbContext
     public DbSet<ProjectEntity> Projects { get; set; }
     
     public DbSet<RoleEntity> Roles { get; set; }
+    
+    public DbSet<FunctionalityEntity> Functionalities { get; set; }
+    
+    public DbSet<TaskItem> TaskItems { get; set; }
 }

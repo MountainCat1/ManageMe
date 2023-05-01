@@ -2,6 +2,7 @@
 
 namespace ManageMe.Domain.Entities;
 
+
 public class FunctionalityEntity : Entity
 {
     public Guid Id { get; set; }
@@ -11,11 +12,11 @@ public class FunctionalityEntity : Entity
     
     public int Priority { get; set; }
     
-    public string ProjectId { get; set; }
+    public Guid ProjectId { get; set; }
     public virtual ProjectEntity Project { get; set; }
     
     public virtual AccountEntity Owner { get; set; }
-    public string OwnerId { get; set; }
+    public Guid OwnerId { get; set; }
     
     public string Status { get; set; }
 
@@ -23,7 +24,7 @@ public class FunctionalityEntity : Entity
     
     private FunctionalityEntity() { }
 
-    public static FunctionalityEntity Create(string name, string description, int priority, string projectId, string ownerId, string status)
+    public static FunctionalityEntity Create(string name, string description, int priority, Guid projectId, Guid ownerId, string status)
     {
         return new FunctionalityEntity
         {
