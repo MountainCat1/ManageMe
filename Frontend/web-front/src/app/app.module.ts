@@ -12,7 +12,7 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { SecureComponent } from './secure/secure.component';
 import { PublicComponent } from './public/public.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
@@ -31,13 +31,14 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     ProjectsComponent,
     CreateProjectComponent,
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        GoogleSigninButtonModule,
-        HttpClientModule,
-        FormsModule,
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    GoogleSigninButtonModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
   providers: [
     {
     provide: 'SocialAuthServiceConfig',
