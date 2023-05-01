@@ -26,26 +26,26 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #236aff; // darker blue
-    --color-secondary: #ff7733; // darker orange
-    --color-accent: #b000e6; // darker purple
-    --color-background: #111; // dark gray
-    --color-text: #f2f2f2; // light gray
-    --color-text-light: #aaa; // medium gray
-    --color-text-accent: #fff; // white
+    --color-primary: #ff8c00;
+    --color-secondary: #ffab57;
+    --color-accent: #d290e4;
+    --color-background: #121212;
+    --color-text: #f2f2f2;
+    --color-text-light: #aaa;
+    --color-text-accent: #fff;
     --color-button-primary: var(--color-primary);
     --color-button-secondary: var(--color-secondary);
     --color-button-accent: var(--color-accent);
     --color-link: var(--color-primary);
     --color-link-hover: var(--color-accent);
-    --color-form-background: #222; // dark gray
-    --color-form-border: #444; // medium gray
-    --color-form-input-background: #333; // darker gray
-    --color-form-input-border: #666; // light gray
-    --color-form-input-focus-border: var(--color-primary); // darker blue
-    --color-accent-1: #ffb703; // darker yellow
-    --color-accent-2: #ff5c8d; // darker pink
-    --color-accent-3: #00e3ff; // brighter light blue
+    --color-form-background: #333;
+    --color-form-border: #555;
+    --color-form-input-background: #444;
+    --color-form-input-border: #666;
+    --color-form-input-focus-border: var(--color-primary);
+    --color-accent-1: #ffcc80;
+    --color-accent-2: #f48fb1;
+    --color-accent-3: #80deea;
   }
 }
 

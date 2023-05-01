@@ -4,8 +4,11 @@
 @import "./variables";
 @import "./pop-up";
 @import "./a";
+@import "./button";
 
-
+html {
+  font-size: 14px;
+}
 
 :root {
   // Define font families

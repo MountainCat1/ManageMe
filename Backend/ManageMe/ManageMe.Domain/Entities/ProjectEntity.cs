@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Catut;
 using ManageMe.Domain.Abstractions;
 
 namespace ManageMe.Domain.Entities;
@@ -19,7 +20,7 @@ public class ProjectEntity : Entity
 
     private ProjectEntity(){}
     
-    public static ProjectEntity Create(string name, DateTime startTime)
+    public static Task<Result<ProjectEntity>> Create(string name, DateTime startTime)
     {
         var entity = new ProjectEntity()
         {
@@ -27,7 +28,7 @@ public class ProjectEntity : Entity
             StartTime = startTime
         };
 
-        return entity;
+        return Task.FromResult<Result<ProjectEntity>>(entity);
     }
     
     private int GetWorkHourDone()

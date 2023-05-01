@@ -146,4 +146,8 @@ export class AuthenticationService {
     //   })
     // );
   }
+
+  public getToken() : string {
+    return  this._cookieService.get('auth_token')
+  }
 }

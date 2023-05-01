@@ -14,6 +14,8 @@ import {PublicComponent} from "./public/public.component";
 import {SecureComponent} from "./secure/secure.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {HomePageComponent} from "./home-page/home-page.component";
+import {ProjectsComponent} from "./projects/projects.component";
+import {CreateProjectComponent} from "./create-project/create-project.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -56,7 +58,10 @@ const PUBLIC_ROUTES: Routes = [
 ]
 
 const SECURE_ROUTES: Routes = [
-  {path: 'home', component: HomePageComponent}
+  {path: 'home', component: HomePageComponent},
+
+  {path: 'projects', component: ProjectsComponent},
+  {path: 'projects/create', component: CreateProjectComponent}
 ]
 
 const APP_ROUTES: Routes = [

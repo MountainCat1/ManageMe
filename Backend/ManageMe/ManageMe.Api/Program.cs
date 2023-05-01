@@ -1,6 +1,7 @@
 using Catut.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using ManageMe.Api.Constants;
 using ManageMe.Api.Extensions;
 using ManageMe.Api.MediaRBehaviors;
 using ManageMe.Application;
@@ -46,6 +47,7 @@ else
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
+services.AddScoped<IProjectRepository, ProjectRepository>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 services.AddScoped<IHashingService, HashingService>();
@@ -64,6 +66,14 @@ services.AddMediatR(serviceConfiguration =>
 });
 
 services.AddAsymmetricAuthentication(jwtConfig);
+
+services.AddAuthorization(options =>
+{
+    options.AddPolicy(AuthorizationPolicies.Authenticated, policyBuilder =>
+    {
+        policyBuilder.RequireAuthenticatedUser();
+    });
+});
 
 var app = builder.Build();
 

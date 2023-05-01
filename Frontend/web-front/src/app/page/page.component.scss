@@ -1,10 +1,14 @@
 :host{
-  background: var(--color-secondary);
+  background: var(--color-background);
 
   min-height: 100vh;
+  padding-top: 5vh;
+
+  padding-left: 1rem;
+  padding-right: 1rem;
+
   display: block;
   width: 40rem;
   box-sizing: border-box;
 
-  overflow-x: hidden;
 }

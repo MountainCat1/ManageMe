@@ -12,7 +12,6 @@ export class NavBarComponent {
 
   }
 
-
   onLinkClick(target : string) {
     this.router.navigate([target]);
   }

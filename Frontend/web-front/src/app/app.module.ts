@@ -14,6 +14,8 @@ import { SecureComponent } from './secure/secure.component';
 import { PublicComponent } from './public/public.component';
 import {FormsModule} from "@angular/forms";
 import { NavBarComponent } from './nav-bar/nav-bar.component';
+import { ProjectsComponent } from './projects/projects.component';
+import { CreateProjectComponent } from './create-project/create-project.component';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
     SecureComponent,
     PublicComponent,
     NavBarComponent,
+    ProjectsComponent,
+    CreateProjectComponent,
   ],
     imports: [
         BrowserModule,

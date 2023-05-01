@@ -1,0 +1,46 @@
+﻿.button {
+  font-size: 1.2rem;
+  position: relative;
+  background-color: var(--color-button-primary);
+
+  font-weight: bold;
+  text-transform: uppercase;
+
+  padding:
+    0.5rem 1rem;
+  border-radius: 0.25rem;
+
+  box-shadow: rgba(0, 0, 0, 0.48) 2px 2px 5px;
+  cursor: pointer;
+
+  transition: background-color;
+  transition-duration: 0.1s;
+}
+
+.button:hover {
+  background-color: var(--color-secondary);
+}
+
+.button:active {
+  background-color: var(--color-button-secondary);
+}
+
+//.button:after {
+//  content: '';
+//
+//  display:block;
+//  border-radius: 1rem;
+//
+//  height: 0.2rem;
+//
+//  background: var(--color-button-accent);
+//
+//  transform: scaleX(0);
+//
+//  transition:
+//    transform 0.15s ease-in-out;
+//}
+//
+//.button:hover:after {
+//  transform: scaleX(1);
+//}
