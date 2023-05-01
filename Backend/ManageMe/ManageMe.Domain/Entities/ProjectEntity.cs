@@ -3,16 +3,19 @@ using ManageMe.Domain.Abstractions;
 
 namespace ManageMe.Domain.Entities;
 
+
 public class ProjectEntity : Entity
 {
     public Guid Id { get; set; }
 
     public string Name { get; set; }
+    public string Description { get; set; }
     
     public DateTime StartTime { get; set; }
     public DateTime EndTime { get; set; }
     
     public virtual IEnumerable<AccountEntity> Members { get; set; }
+    public virtual IEnumerable<FunctionalityEntity> Funcionalities { get; set; }
 
     public TimeSpan EstimatedTime => GetEstimatedTime();
     public int WorkHourDone => GetWorkHourDone();

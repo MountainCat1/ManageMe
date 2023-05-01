@@ -6,14 +6,16 @@ public class DatabaseInitializer
 {
     public void Seed(ManageMeDbContext context)
     {
-        var doesDeveloperExist = context.Roles
-            .FirstOrDefault(x => x.Name == "Developer") is not null;
+        var doesAdminRoleExists = context.Roles
+            .FirstOrDefault(x => x.Name == "Admin") is not null;
 
-        if (!doesDeveloperExist)
+        if (!doesAdminRoleExists)
         {
             var roles = new List<RoleEntity>
             {
+                RoleEntity.Create("Admin"),
                 RoleEntity.Create("Developer"),
+                RoleEntity.Create("Devops"),
             };
 
             context.Roles.AddRange(roles);

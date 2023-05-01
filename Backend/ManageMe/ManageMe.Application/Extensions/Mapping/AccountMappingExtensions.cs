@@ -11,6 +11,8 @@ public static class AccountMappingExtensions
         {
             Username = accountEntity.Username,
             Email = accountEntity.Email,
+            Name = accountEntity.Name,
+            Surname = accountEntity.Surname,
             Role = accountEntity.Role.ToDto()
         };
     }

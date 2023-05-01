@@ -38,6 +38,26 @@ public class ManageMeDbContext : DbContext
         
         // == ROLES
         modelBuilder.Entity<RoleEntity>().HasKey(x => x.Name);
+        
+        // == FUNCIONALITY
+        modelBuilder.Entity<FunctionalityEntity>().HasKey(x => x.Id);
+        modelBuilder.Entity<FunctionalityEntity>().HasOne<ProjectEntity>(x => x.Project)
+            .WithMany(x => x.Funcionalities)
+            .HasForeignKey(x => x.ProjectId);
+        modelBuilder.Entity<FunctionalityEntity>().HasOne<AccountEntity>(x => x.Owner)
+            .WithMany(x => x.Functionalities)
+            .HasForeignKey(x => x.OwnerId);
+        
+         
+        // == TASK ITEM
+        modelBuilder.Entity<TaskItem>().HasKey(x => x.Id);
+        modelBuilder.Entity<TaskItem>().HasOne<FunctionalityEntity>(x => x.Functionality)
+            .WithMany(x => x.TaskItems)
+            .HasForeignKey(x => x.FunctionalityId);
+
+        modelBuilder.Entity<TaskItem>().HasOne<AccountEntity>(x => x.AssignedUser)
+            .WithMany(x => x.TaskItems)
+            .HasForeignKey(x => x.AssignedUserId);
     }
 
     public DbSet<AccountEntity> Accounts { get; set; }

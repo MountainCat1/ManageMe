@@ -11,6 +11,8 @@ public class CreateAccountRequest : IResultRequest
     public string Username { get; set; }
     public string Email { get; set; }
     public string Password { get; set; }
+    public string Name { get; set; }
+    public string Surname { get; set; }
 }
 
 public class CreateAccountRequestHandler : IResultRequestHandler<CreateAccountRequest>
@@ -44,6 +46,6 @@ public class CreateAccountRequestHandler : IResultRequestHandler<CreateAccountRe
     {
         var passwordHash = _hashingService.HashPassword(request.Password);
 
-        return LocalAccountEntity.Create(request.Email, request.Username, passwordHash);
+        return LocalAccountEntity.Create(request.Email, request.Username,  request.Name, request.Surname, passwordHash);
     }
 }

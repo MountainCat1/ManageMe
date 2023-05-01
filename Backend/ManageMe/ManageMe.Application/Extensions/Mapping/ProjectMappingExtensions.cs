@@ -11,6 +11,7 @@ public static class ProjectMappingExtensions
         {
             Id = entity.Id,
             Name = entity.Name,
+            Description = entity.Description,
             StartTime = entity.StartTime,
             EndTime = entity.EndTime
         };
