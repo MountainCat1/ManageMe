@@ -1,0 +1,9 @@
+<ng-container *ngIf="projects.length > 0; else noProjects">
+  <ul class="project-list">
+    <li *ngFor="let project of projects" class="project-list-item">{{ project.name }}</li>
+  </ul>
+</ng-container>
+
+<ng-template #noProjects>
+  <p class="no-projects-message">No projects found.</p>
+</ng-template>

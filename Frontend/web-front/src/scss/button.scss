@@ -1,52 +1,31 @@
 ﻿.button {
-  font-size: 1.2rem;
-  position: relative;
-  background-color: var(--color-button-primary);
-
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, var(--color-button-primary) 0%, var(--color-button-secondary) 100%);
+  color: var(--color-text-accent);
+  font-size: 1rem;
   font-weight: bold;
-  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 2px 4px black;
+  transition: all 0.1s ease-in-out;
 
-  padding:
-    0.5rem 1rem;
-  border-radius: 0.25rem;
-
-  box-shadow: rgba(0, 0, 0, 0.48) 2px 2px 5px;
   cursor: pointer;
-
-  transition: background-color;
-  transition-duration: 0.1s;
 }
 
-.small-button {
+.button-small {
   @extend .button;
 
-  font-size: 1rem;
+  font-size: 0.9rem;
 }
 
 .button:hover {
-  background-color: var(--color-secondary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .button:active {
-  background-color: var(--color-button-secondary);
+  transform: translateY(2px);
+  outline: none;
+  //box-shadow: 0 0 0 3px var(--color-form-input-focus-border);
 }
-
-//.button:after {
-//  content: '';
-//
-//  display:block;
-//  border-radius: 1rem;
-//
-//  height: 0.2rem;
-//
-//  background: var(--color-button-accent);
-//
-//  transform: scaleX(0);
-//
-//  transition:
-//    transform 0.15s ease-in-out;
-//}
-//
-//.button:hover:after {
-//  transform: scaleX(1);
-//}

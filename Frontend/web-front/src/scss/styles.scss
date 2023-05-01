@@ -30,8 +30,11 @@ body {
   font-family: var(--font-body);
   font-size: var(--font-size-medium);
 
-  background-color: var(--color-background);
+  background-image: url('/assets/Background.png');
+  background-repeat: repeat;
+
   color: var(--color-text);
+
 
   padding: 0;
   margin: 0;

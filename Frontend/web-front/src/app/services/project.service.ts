@@ -19,4 +19,8 @@ export class ProjectService {
   public createProject(dto : CreateProjectContract) : Observable<any> {
     return this.httpClient.post(this.baseEndpoint, dto);
   }
+
+  getProjects(): Observable<any> {
+    return this.httpClient.get(this.baseEndpoint);
+  }
 }

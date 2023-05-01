@@ -18,7 +18,7 @@ export class AuthHttpService {
     const url = this.createUri(path);
 
     const headers = {
-      'Authorization': `Bearer ${this.authService}`
+      'Authorization': `Bearer ${this.authService.getToken()}`
     }
 
     return this.http.get(url, {

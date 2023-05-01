@@ -30,4 +30,14 @@ public class ProjectController : Controller
         
         return result.ToOk();
     }
+    
+    [HttpGet]
+    public async Task<IActionResult> GetAll()
+    {
+        var request = new GetAllProjectsRequest();
+        
+        var result = await _mediator.Send(request);
+        
+        return result.ToOk();
+    }
 }

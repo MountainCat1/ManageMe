@@ -16,6 +16,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
+import { ProjectListComponent } from './project-list/project-list.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CreateProjectComponent } from './create-project/create-project.componen
     NavBarComponent,
     ProjectsComponent,
     CreateProjectComponent,
+    ProjectListComponent,
   ],
   imports: [
     BrowserModule,
