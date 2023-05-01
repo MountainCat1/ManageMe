@@ -1,5 +1,6 @@
 ﻿using ManageMe.Api.Constants;
 using ManageMe.Api.Extensions;
+using ManageMe.Application.Dtos;
 using ManageMe.Application.Features.Project;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -35,6 +36,33 @@ public class ProjectController : Controller
     public async Task<IActionResult> GetAll()
     {
         var request = new GetAllProjectsRequest();
+        
+        var result = await _mediator.Send(request);
+        
+        return result.ToOk();
+    }
+    
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Update([FromBody] ProjectDto updateDto, [FromRoute] Guid id)
+    {
+        var request = new UpdateProjectRequest()
+        {
+            Dto = updateDto,
+            TargetProjectId = id
+        };
+        
+        var result = await _mediator.Send(request);
+        
+        return result.ToOk();
+    }
+    
+    [HttpPut("{id:guid}")]
+    public async Task<IActionResult> Delete([FromRoute] Guid id)
+    {
+        var request = new DeleteProjectRequest()
+        {
+            TargetToDelete = id
+        };
         
         var result = await _mediator.Send(request);
         
