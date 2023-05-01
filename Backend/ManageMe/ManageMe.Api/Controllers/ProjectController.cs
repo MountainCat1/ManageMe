@@ -56,7 +56,7 @@ public class ProjectController : Controller
         return result.ToOk();
     }
     
-    [HttpPut("{id:guid}")]
+    [HttpDelete("{id:guid}")]
     public async Task<IActionResult> Delete([FromRoute] Guid id)
     {
         var request = new DeleteProjectRequest()
