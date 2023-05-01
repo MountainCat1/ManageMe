@@ -17,6 +17,7 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectListComponent } from './project-list/project-list.component';
+import { MyAccountBarComponent } from './my-account-bar/my-account-bar.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { ProjectListComponent } from './project-list/project-list.component';
     ProjectsComponent,
     CreateProjectComponent,
     ProjectListComponent,
+    MyAccountBarComponent,
   ],
   imports: [
     BrowserModule,

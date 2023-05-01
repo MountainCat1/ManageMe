@@ -12,7 +12,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     where TEntity : Entity
     where TDbContext : DbContext
 {
-    private readonly DbSet<TEntity> _dbSet;
+    protected readonly DbSet<TEntity> _dbSet;
     private readonly Func<Task> _saveChangesAsyncDelegate;
     private IMediator _mediator;
     private TDbContext _dbContext;
@@ -67,7 +67,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     }
 
     public async Task<TEntity?> GetOneAsync(Expression<Func<TEntity, bool>>? filter = null,
-        params string[] includeProperties)
+        params string[]? includeProperties)
     {
         IQueryable<TEntity> query = _dbSet;
 
@@ -85,7 +85,7 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
     }
     
     public async Task<TEntity> GetOneRequiredAsync(Expression<Func<TEntity, bool>>? filter = null,
-        params string[] includeProperties)
+        params string[]? includeProperties)
     {
         var entity = await GetOneAsync(filter, includeProperties);
 

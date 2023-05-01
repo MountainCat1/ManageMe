@@ -7,7 +7,7 @@ public class ManageMeDbContext : DbContext
 {
     public ManageMeDbContext(DbContextOptions<ManageMeDbContext> options) : base(options)
     {
-        
+
     }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -19,6 +19,10 @@ public class ManageMeDbContext : DbContext
         modelBuilder.Entity<AccountEntity>().HasMany<ProjectEntity>(x => x.Projects);
         modelBuilder.Entity<AccountEntity>().HasDiscriminator<string>("discriminator")
             .HasValue<GoogleAccountEntity>("google");
+        modelBuilder.Entity<AccountEntity>()
+            .HasOne<RoleEntity>(x => x.Role)
+            .WithMany(x => x.Accounts)
+            .HasForeignKey(x => x.RoleId);
         
         // email
         modelBuilder.Entity<AccountEntity>().Property(x => x.Email).IsRequired();
@@ -30,10 +34,15 @@ public class ManageMeDbContext : DbContext
         // == PROJECTS
         modelBuilder.Entity<ProjectEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<ProjectEntity>().HasMany<AccountEntity>(x => x.Members);
+        
+        // == ROLES
+        modelBuilder.Entity<RoleEntity>().HasKey(x => x.Name);
     }
 
     public DbSet<AccountEntity> Accounts { get; set; }
     public DbSet<GoogleAccountEntity> GoogleAccounts { get; set; }
     
     public DbSet<ProjectEntity> Projects { get; set; }
+    
+    public DbSet<RoleEntity> Roles { get; set; }
 }

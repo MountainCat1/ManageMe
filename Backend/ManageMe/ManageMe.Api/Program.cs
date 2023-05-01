@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using Catut.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -13,6 +14,7 @@ using ManageMe.Infrastructure.Contexts;
 using ManageMe.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 // ========= CONFIGURATION  =========
@@ -29,14 +31,14 @@ services.Configure<AuthenticationConfig>(configuration.GetSection(nameof(Authent
 services.Configure<JwtConfig>(configuration.GetSection(nameof(JwtConfig)));
 
 services.AddLogging();
-
 services.AddControllers();
+
 services.AddEndpointsApiExplorer();
 services.AddSwaggerGen();
 
 if (builder.Environment.IsDevelopment())
     services.AddDbContext<ManageMeDbContext>(options
-        => options.UseSqlServer(configuration.GetConnectionString("ManageMeDatabase"), 
+        => options.UseSqlServer(configuration.GetConnectionString("ManageMeDatabase"),
             b => b.MigrationsAssembly(typeof(Program).Assembly.FullName)));
 
 // options.UseSqlServer(connection, b => b.MigrationsAssembly("ManageMe.Api"))
@@ -69,10 +71,8 @@ services.AddAsymmetricAuthentication(jwtConfig);
 
 services.AddAuthorization(options =>
 {
-    options.AddPolicy(AuthorizationPolicies.Authenticated, policyBuilder =>
-    {
-        policyBuilder.RequireAuthenticatedUser();
-    });
+    options.AddPolicy(AuthorizationPolicies.Authenticated,
+        policyBuilder => { policyBuilder.RequireAuthenticatedUser(); });
 });
 
 var app = builder.Build();
@@ -94,5 +94,13 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+if (builder.Environment.IsDevelopment())
+{
+    using (var scope = app.Services.CreateScope())
+    {
+        new DatabaseInitializer().Seed(scope.ServiceProvider.GetRequiredService<ManageMeDbContext>());
+    }
+}
 
 app.Run();

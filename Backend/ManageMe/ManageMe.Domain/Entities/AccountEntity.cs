@@ -9,6 +9,7 @@ public abstract class AccountEntity : Entity
     {
         Username = username;
         Email = email;
+        RoleId = "Developer";
         
         AddDomainEvent(new CreateAccountDomainEvent());
     }
@@ -18,4 +19,6 @@ public abstract class AccountEntity : Entity
     public string Username { get; set; }
     public string Email { get; set; }
     public virtual IEnumerable<ProjectEntity> Projects { get; set; }
+    public virtual RoleEntity Role { get; set; }
+    public string RoleId { get; set; }
 }

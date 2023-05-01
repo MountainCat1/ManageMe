@@ -14,14 +14,14 @@ export class AuthHttpService {
   constructor(private http : HttpClient,
               private authService : AuthenticationService) { }
 
-  public get(path: string): Observable<any> {
+  public get<T>(path: string): Observable<T> {
     const url = this.createUri(path);
 
     const headers = {
       'Authorization': `Bearer ${this.authService.getToken()}`
     }
 
-    return this.http.get(url, {
+    return this.http.get<T>(url, {
       headers: headers
     });
   }

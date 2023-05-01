@@ -12,4 +12,9 @@ public class GoogleAccountRepository : Repository<GoogleAccountEntity, ManageMeD
     public GoogleAccountRepository(ManageMeDbContext dbContext, IMediator mediator, ILogger<Repository<GoogleAccountEntity, ManageMeDbContext>> logger) : base(dbContext, mediator, logger)
     {
     }
+
+    public Task AddAsync(GoogleAccountEntity googleAccount)
+    {
+        return base.AddAsync(googleAccount);
+    }
 }
