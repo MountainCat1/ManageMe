@@ -38,8 +38,9 @@ export class GoogleAuthComponent {
     let authRequest: AuthViaGoogleRequestContract = {
       authToken: this.user.idToken,
     }
-    this._authService.authUser(authRequest).then(x => {
-      this.authenticated.emit();
+
+    this._authService.authOrRegister(authRequest).subscribe(x => {
+      this.authenticated.emit()
     })
   }
 

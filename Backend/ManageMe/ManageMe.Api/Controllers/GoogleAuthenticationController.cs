@@ -23,7 +23,7 @@ public class GoogleAuthentication : Controller
     {
         var mediatorRequest = new CreateGoogleAccountRequest(contract.AuthToken);
 
-        var result = await _mediator.Send(mediatorRequest);
+        Result result = await _mediator.Send(mediatorRequest);
 
         return result.ToOk();
     }
