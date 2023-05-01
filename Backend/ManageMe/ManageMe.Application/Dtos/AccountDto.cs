@@ -1,6 +1,4 @@
-﻿using ManageMe.Domain.Entities;
-
-namespace ManageMe.Application.Dtos;
+﻿namespace ManageMe.Application.Dtos;
 
 public class AccountDto
 {

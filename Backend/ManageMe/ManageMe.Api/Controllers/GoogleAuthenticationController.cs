@@ -1,7 +1,7 @@
 ﻿using Catut;
 using ManageMe.Api.Extensions;
 using ManageMe.Application.Dtos.Responses;
-using ManageMe.Application.Features.GoogleAuthentication;
+using ManageMe.Application.Features.Authentication;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 

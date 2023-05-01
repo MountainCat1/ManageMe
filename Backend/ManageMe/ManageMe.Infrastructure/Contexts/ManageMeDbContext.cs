@@ -18,7 +18,8 @@ public class ManageMeDbContext : DbContext
         modelBuilder.Entity<AccountEntity>().HasKey(x => x.Id);
         modelBuilder.Entity<AccountEntity>().HasMany<ProjectEntity>(x => x.Projects);
         modelBuilder.Entity<AccountEntity>().HasDiscriminator<string>("discriminator")
-            .HasValue<GoogleAccountEntity>("google");
+            .HasValue<GoogleAccountEntity>("google")
+            .HasValue<LocalAccountEntity>("local");
         modelBuilder.Entity<AccountEntity>()
             .HasOne<RoleEntity>(x => x.Role)
             .WithMany(x => x.Accounts)

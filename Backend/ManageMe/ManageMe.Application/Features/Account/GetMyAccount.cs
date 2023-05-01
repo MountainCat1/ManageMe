@@ -6,7 +6,6 @@ using ManageMe.Application.Errors;
 using ManageMe.Application.Extensions.Mapping;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
-using Microsoft.AspNetCore.Http;
 
 namespace ManageMe.Application.Features.Account;
 

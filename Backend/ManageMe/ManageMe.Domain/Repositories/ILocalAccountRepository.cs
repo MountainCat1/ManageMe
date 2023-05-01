@@ -3,6 +3,7 @@ using ManageMe.Domain.Entities;
 
 namespace ManageMe.Domain.Repositories;
 
-public interface IGoogleAccountRepository : IRepository<GoogleAccountEntity>
+
+public interface ILocalAccountRepository : IRepository<LocalAccountEntity>
 {
 }

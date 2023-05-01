@@ -4,7 +4,6 @@ using ManageMe.Application.Dtos;
 using ManageMe.Application.Extensions.Mapping;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
-using MediatR;
 
 namespace ManageMe.Application.Features.Project;
 

@@ -1,6 +1,5 @@
 ﻿using Catut;
 using ManageMe.Application.Abstractions;
-using ManageMe.Application.Dtos;
 using ManageMe.Domain.Repositories;
 
 namespace ManageMe.Application.Features.Project;

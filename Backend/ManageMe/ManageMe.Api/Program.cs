@@ -1,4 +1,3 @@
-using System.Text.Json.Serialization;
 using Catut.Configuration;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -6,7 +5,7 @@ using ManageMe.Api.Constants;
 using ManageMe.Api.Extensions;
 using ManageMe.Api.MediaRBehaviors;
 using ManageMe.Application;
-using ManageMe.Application.Features.GoogleAuthentication;
+using ManageMe.Application.Features.Authentication;
 using ManageMe.Application.Services;
 using ManageMe.Application.Settings;
 using ManageMe.Domain.Repositories;
@@ -14,7 +13,6 @@ using ManageMe.Infrastructure.Contexts;
 using ManageMe.Infrastructure.Repositories;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json;
 
 var builder = WebApplication.CreateBuilder(args);
 // ========= CONFIGURATION  =========
@@ -49,6 +47,7 @@ else
 
 services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
+services.AddScoped<ILocalAccountRepository, LocalAccountRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();

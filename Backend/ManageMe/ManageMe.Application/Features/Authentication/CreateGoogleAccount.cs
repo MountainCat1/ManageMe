@@ -4,7 +4,7 @@ using ManageMe.Application.Abstractions;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 
-namespace ManageMe.Application.Features.GoogleAuthentication;
+namespace ManageMe.Application.Features.Authentication;
 
 public class CreateGoogleAccountRequestContract
 {

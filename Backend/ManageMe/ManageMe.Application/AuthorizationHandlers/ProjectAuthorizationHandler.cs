@@ -1,5 +1,4 @@
 ﻿using ManageMe.Application.Extensions;
-using ManageMe.Domain.Entities;
 using Microsoft.AspNetCore.Authorization;
 
 namespace ManageMe.Application.AuthorizationHandlers;

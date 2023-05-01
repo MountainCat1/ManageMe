@@ -2,7 +2,6 @@
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 using MediatR;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace ManageMe.Application.Features.Project;
 

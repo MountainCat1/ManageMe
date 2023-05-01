@@ -1,5 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Catut;
+﻿using Catut;
 using ManageMe.Domain.Abstractions;
 
 namespace ManageMe.Domain.Entities;

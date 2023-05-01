@@ -1,5 +1,4 @@
 ﻿using Catut;
-using Catut.Errors;
 using Google.Apis.Auth;
 using ManageMe.Application.Abstractions;
 using ManageMe.Application.Dtos.Responses;
@@ -8,7 +7,7 @@ using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 using NotFoundError = ManageMe.Application.Errors.NotFoundError;
 
-namespace ManageMe.Application.Features.GoogleAuthentication;
+namespace ManageMe.Application.Features.Authentication;
 
 public class AuthiViaGoogleRequestContract
 {

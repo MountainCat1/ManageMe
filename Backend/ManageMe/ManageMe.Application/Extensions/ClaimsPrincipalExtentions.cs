@@ -1,6 +1,4 @@
 ﻿using System.Security.Claims;
-using Microsoft.IdentityModel.JsonWebTokens;
-using JwtConstants = System.IdentityModel.Tokens.Jwt.JwtConstants;
 
 namespace ManageMe.Application.Extensions;
 

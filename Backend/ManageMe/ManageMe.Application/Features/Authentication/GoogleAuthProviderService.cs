@@ -3,7 +3,7 @@ using ManageMe.Application.Settings;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 
-namespace ManageMe.Application.Features.GoogleAuthentication;
+namespace ManageMe.Application.Features.Authentication;
 
 public interface IGoogleAuthProviderService
 {
