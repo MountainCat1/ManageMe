@@ -2,7 +2,7 @@ import {Component} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../services/project.service";
 import {CreateProjectContract} from "../contracts/CreateProjectContract";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-create-project',
@@ -14,7 +14,7 @@ export class CreateProjectComponent {
   public loading: boolean = false;
   public triedSubmit: boolean = false;
 
-  constructor(private fb: FormBuilder, private projectService: ProjectService, private router: Router) {
+  constructor(private fb: FormBuilder, private projectService: ProjectService, private router: Router, private route : ActivatedRoute) {
     this.projectForm = this.fb.group({
       name: ['', Validators.required ]
     });
@@ -46,7 +46,7 @@ export class CreateProjectComponent {
   }
 
   public goBack(): void {
-    this.router.navigate(['../']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
 
   public get allErrors(): string[] {
