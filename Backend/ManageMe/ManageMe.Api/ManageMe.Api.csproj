@@ -30,4 +30,13 @@
       <ProjectReference Include="..\ManageMe.Infrastructure\ManageMe.Infrastructure.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Migrations\ManageMeDbContextModelSnapshot.cs" />
+      <Compile Remove="Migrations\20230502100011_ggdwadwa.Designer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
+    </ItemGroup>
+
 </Project>

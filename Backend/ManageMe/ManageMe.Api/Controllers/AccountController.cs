@@ -29,7 +29,7 @@ public class AccountController : Controller
         };
 
         var result = await _mediator.Send(request);
-
+        
         return result.ToOk();
     }
     
