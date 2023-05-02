@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {ProjectDtoContract} from "../contracts/projectDtoContract";
 import {environment} from "../../environments/environment";
@@ -11,23 +11,29 @@ import {Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ProjectService {
-  private baseEndpoint : string = 'project';
+  private baseEndpoint: string = 'project';
 
-  constructor(private httpClient : AuthHttpService) { }
+  constructor(private httpClient: AuthHttpService) {
+  }
 
 
-  public createProject(dto : ProjectDtoContract) : Observable<any> {
+  public createProject(dto: ProjectDtoContract): Observable<any> {
     return this.httpClient.post(this.baseEndpoint, dto);
   }
 
-  public updateProject(id : string, dto : ProjectDtoContract) : Observable<any> {
+  public updateProject(id: string, dto: ProjectDtoContract): Observable<any> {
     return this.httpClient.put(urlJoin(this.baseEndpoint, id), dto);
   }
 
-  public getProject(id : string): Observable<any> {
+  public getProject(id: string): Observable<any> {
     return this.httpClient.get(urlJoin(this.baseEndpoint, id));
   }
+
   public getProjects(): Observable<any> {
     return this.httpClient.get(this.baseEndpoint);
+  }
+
+  public deleteProject(projectId: string) {
+    return this.httpClient.delete(urlJoin(this.baseEndpoint, projectId));
   }
 }

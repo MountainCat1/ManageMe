@@ -1,4 +1,5 @@
 ﻿using Catut;
+using Catut.Errors;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 using MediatR;
@@ -24,7 +25,7 @@ public class CreateProjectRequestHandler : IRequestHandler<CreateProjectRequest,
     {
         return ProjectEntity.Create(request.Name, request.Description, DateTime.Now)
             .BindAsync(SaveToTheDatabase)
-            .BindAsync(_ => Result.SuccessTask());
+            .BindAsync(_ => Task.FromResult(Result.Success()));
     }
 
     private async Task<Result<ProjectEntity>> SaveToTheDatabase(ProjectEntity entity)

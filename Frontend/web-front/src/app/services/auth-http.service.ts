@@ -50,7 +50,21 @@ export class AuthHttpService {
     });
   }
 
+  public delete(path: string) {
+    const url = this.createUri(path);
+
+    const headers = {
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    }
+
+    return this.http.delete(url, {
+      headers: headers
+    });
+  }
+
   private createUri(path : string){
     return urlJoin(this.apiUri, path);
   }
+
+
 }

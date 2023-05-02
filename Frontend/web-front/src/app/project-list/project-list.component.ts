@@ -16,10 +16,21 @@ export class ProjectListComponent implements OnInit {
 
 
   ngOnInit(): void {
+   this.fetchProjects();
+  }
+
+  deleteProject(projectId: string) {
+    this.projectService.deleteProject(projectId).subscribe({
+      next: value => {
+        this.fetchProjects()
+      }
+    })
+  }
+
+  private fetchProjects(){
     this.projectService.getProjects().subscribe({
       error: err => console.error(err),
       next: value => this.projects = value
     });
   }
-
 }

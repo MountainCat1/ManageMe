@@ -23,14 +23,14 @@
       class="error"
       *ngIf="checkIfShowError('description')">
       <div *ngIf="projectForm.get('description')!.errors!.required">
-        Name is required
+        Description is required
       </div>
 
     </div>
   </div>
 
   <div class="right-full">
-    <button class="button-small" type="submit">Create Project</button>
+    <button class="button-small" type="submit">Save changes</button>
   </div>
 </form>
 <div class="dual-ring-spinner" *ngIf="loading"></div>

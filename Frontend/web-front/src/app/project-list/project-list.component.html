@@ -13,6 +13,6 @@
 <ng-template #projectEntry let-name="name" let-id="id">
   <span>{{name}}</span>
   <a routerLink="./{{id}}/edit">Edit</a>
-  <a routerLink="./{{id}}/delete">Delete</a>
-  <a routerLink="./{{id}}/delete">Details</a>
+  <a (click)="deleteProject(id)">Delete</a>
+  <a routerLink="./{{id}}">Details</a>
 </ng-template>
