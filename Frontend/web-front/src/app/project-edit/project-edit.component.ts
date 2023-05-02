@@ -1,26 +1,43 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {ProjectService} from "../services/project.service";
-import {CreateProjectContract} from "../contracts/CreateProjectContract";
 import {ActivatedRoute, Router} from "@angular/router";
+import {ProjectDtoContract} from "../contracts/projectDtoContract";
 
 @Component({
-  selector: 'app-create-project',
-  templateUrl: './create-project.component.html',
-  styleUrls: ['./create-project.component.scss']
+  selector: 'app-project-edit',
+  templateUrl: './project-edit.component.html',
+  styleUrls: ['./project-edit.component.scss']
 })
-export class CreateProjectComponent {
+export class ProjectEditComponent implements OnInit {
   public projectForm: FormGroup;
   public loading: boolean = false;
   public triedSubmit: boolean = false;
+  private projectId: string = "";
 
-  constructor(private fb: FormBuilder, private projectService: ProjectService, private router: Router, private route : ActivatedRoute) {
+  constructor(private fb: FormBuilder, private projectService: ProjectService, private router: Router, private route: ActivatedRoute) {
     this.projectForm = this.fb.group({
-      name: ['', Validators.required ]
+      name: ['', Validators.required],
+      description: ['', Validators.required]
     });
   }
 
-  public checkIfShowError(propName : string){
+  ngOnInit(): void {
+    this.route.params.subscribe(params => {
+      this.getEntity(params['id'])
+    });
+  }
+
+  public getEntity(id : string) {
+    this.projectId = id;
+    this.projectService.getProject(id).subscribe({
+      next: dto => {
+        this.projectForm.patchValue(dto)
+      }
+    })
+  }
+
+  public checkIfShowError(propName: string) {
     const form = this.projectForm;
 
     return form.get(propName)!.invalid
@@ -35,18 +52,20 @@ export class CreateProjectComponent {
       return;
     }
 
-    const dto: CreateProjectContract = {
-      Name: this.projectForm.get('name')!.value
+    const dto: ProjectDtoContract = {
+      Name: this.projectForm.get('name')!.value,
+      Description: this.projectForm.get('description')!.value
     }
+
     this.loading = true;
-    this.projectService.createProject(dto).subscribe(() => {
+    this.projectService.updateProject(this.projectId, dto).subscribe(() => {
       this.loading = false;
       this.goBack()
     });
   }
 
   public goBack(): void {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['../../'], {relativeTo: this.route});
   }
 
   public get allErrors(): string[] {

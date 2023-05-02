@@ -1,11 +1,11 @@
-﻿.lds-dual-ring {
+﻿.dual-ring-spinner {
   display: block;
   width: 80px;
   height: 80px;
 
   margin: auto;
 }
-.lds-dual-ring:after {
+.dual-ring-spinner:after {
   content: " ";
   display: block;
   width: 64px;
@@ -23,4 +23,18 @@
   100% {
     transform: rotate(360deg);
   }
+}
+
+
+.dual-ring-spinner-small {
+  @extend .dual-ring-spinner;
+
+  width: 40px;
+  height: 40px;
+}
+.dual-ring-spinner-small:after {
+  @extend .dual-ring-spinner, :after;
+
+  width: 32px;
+  height: 32px;
 }

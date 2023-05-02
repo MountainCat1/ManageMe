@@ -38,6 +38,18 @@ export class AuthHttpService {
     });
   }
 
+  public put(path: string, data: any): Observable<any> {
+    const url = this.createUri(path);
+
+    const headers = {
+      'Authorization': `Bearer ${this.authService.getToken()}`
+    }
+
+    return this.http.put(url, data, {
+      headers: headers
+    });
+  }
+
   private createUri(path : string){
     return urlJoin(this.apiUri, path);
   }

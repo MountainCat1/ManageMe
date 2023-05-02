@@ -6,7 +6,6 @@
   padding: 0;
 
   .project-list-item {
-    color: var(--color-text);
     padding: 0.5rem;
     border-bottom: 1px solid var(--color-form-border);
 
@@ -20,3 +19,8 @@
   color: var(--color-text);
 }
 
+.project-list-item {
+  display: grid;
+
+  grid-template-columns: 3fr 1fr 1fr 1fr;
+}

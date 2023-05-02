@@ -1,4 +1,4 @@
-<h1 class="gradient-text">Create a Project</h1>
+<h1 class="gradient-text">Edit Project</h1>
 <form class="form" [formGroup]="projectForm" (ngSubmit)="onSubmit()">
   <div class="input-group">
     <label for="name">Name:</label>
@@ -14,10 +14,25 @@
     </div>
   </div>
 
+  <div class="input-group">
+    <label for="description">Description:</label>
+    <input id="description" type="text" formControlName="description">
+    <div class="error"></div>
+
+    <div
+      class="error"
+      *ngIf="checkIfShowError('description')">
+      <div *ngIf="projectForm.get('description')!.errors!.required">
+        Name is required
+      </div>
+
+    </div>
+  </div>
+
   <div class="right-full">
     <button class="button-small" type="submit">Create Project</button>
   </div>
 </form>
-<div class="lds-dual-ring" *ngIf="loading"></div>
+<div class="dual-ring-spinner" *ngIf="loading"></div>
 
 

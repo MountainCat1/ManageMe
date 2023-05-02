@@ -22,12 +22,13 @@ public class ProjectEntity : Entity
 
     private ProjectEntity(){}
     
-    public static Task<Result<ProjectEntity>> Create(string name, DateTime startTime)
+    public static Task<Result<ProjectEntity>> Create(string name, string description, DateTime startTime)
     {
         var entity = new ProjectEntity()
         {
             Name = name,
-            StartTime = startTime
+            StartTime = startTime,
+            Description = description
         };
 
         return Task.FromResult<Result<ProjectEntity>>(entity);

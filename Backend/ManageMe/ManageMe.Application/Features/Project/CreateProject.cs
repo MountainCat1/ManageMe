@@ -8,6 +8,7 @@ namespace ManageMe.Application.Features.Project;
 public class CreateProjectRequest : IRequest<Result>
 {
     public required string Name { get; set; }
+    public required string Description { get; set; }
 }
 
 public class CreateProjectRequestHandler : IRequestHandler<CreateProjectRequest, Result>
@@ -21,7 +22,7 @@ public class CreateProjectRequestHandler : IRequestHandler<CreateProjectRequest,
 
     public Task<Result> Handle(CreateProjectRequest request, CancellationToken cancellationToken)
     {
-        return ProjectEntity.Create(request.Name, DateTime.Now)
+        return ProjectEntity.Create(request.Name, request.Description, DateTime.Now)
             .BindAsync(SaveToTheDatabase)
             .BindAsync(_ => Result.SuccessTask());
     }

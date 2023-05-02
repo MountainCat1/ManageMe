@@ -15,7 +15,8 @@ import {SecureComponent} from "./secure/secure.component";
 import {SignInComponent} from "./sign-in/sign-in.component";
 import {HomePageComponent} from "./home-page/home-page.component";
 import {ProjectsComponent} from "./projects/projects.component";
-import {CreateProjectComponent} from "./create-project/create-project.component";
+import {CreateProjectComponent} from "./project-create/create-project.component";
+import {ProjectEditComponent} from "./project-edit/project-edit.component";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -29,6 +30,7 @@ const guard: CanActivateFn = (
       if(authenticated)
         return true;
 
+      console.log('Tried to go to a private page while unauthenticated!')
 
       router.navigate(['../sign-in']).then(success => {
         if (success) {
@@ -61,7 +63,8 @@ const SECURE_ROUTES: Routes = [
   {path: 'home', component: HomePageComponent},
 
   {path: 'projects', component: ProjectsComponent},
-  {path: 'projects/create', component: CreateProjectComponent}
+  {path: 'projects/create', component: CreateProjectComponent},
+  {path: 'projects/:id/edit', component: ProjectEditComponent}
 ]
 
 const APP_ROUTES: Routes = [

@@ -42,6 +42,19 @@ public class ProjectController : Controller
         return result.ToOk();
     }
     
+    [HttpGet("{id:guid}")]
+    public async Task<IActionResult> GetOne(Guid id)
+    {
+        var request = new GetProjectRequest()
+        {
+            ProjectId = id
+        };
+        
+        var result = await _mediator.Send(request);
+        
+        return result.ToOk();
+    }
+    
     [HttpPut("{id:guid}")]
     public async Task<IActionResult> Update([FromBody] ProjectDto updateDto, [FromRoute] Guid id)
     {

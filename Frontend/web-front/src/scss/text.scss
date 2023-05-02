@@ -1,0 +1,21 @@
+﻿@import "variables";
+
+.gradient-text {
+  background: linear-gradient(45deg, $color-primary, $color-secondary); /*var(--gradient-3);*/
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+
+.gradient-text-2 {
+  background: linear-gradient(45deg, $color-secondary, $color-accent); /*var(--gradient-3);*/
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+h1 {
+  @extend .gradient-text;
+  text-align: center;
+
+  font-size: 3rem;
+}

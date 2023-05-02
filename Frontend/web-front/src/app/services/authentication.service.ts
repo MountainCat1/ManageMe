@@ -11,6 +11,7 @@ import {AuthTokenResponseContract} from "../contracts/authTokenResponseContract"
 import {GetClaimsResponseContract} from "../contracts/getClaimsResponseContract";
 import {ClaimDto} from "../contracts/dtos/claimDto";
 import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-file/augment-index-html";
+import {AuthViaPasswordRequest} from "../contracts/authViaPasswordRequest";
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AuthenticationService {
     return undefined;
   }
 
-  public async authUser(authRequest: AuthViaGoogleRequestContract): Promise<string | undefined> {
+  public async authUserViaGoogle(authRequest: AuthViaGoogleRequestContract): Promise<string | undefined> {
     console.log('Authenticating...')
     let headers: any = {
       // 'Authorization': `Bearer ${authRequest.token}`
@@ -47,6 +48,32 @@ export class AuthenticationService {
     return responseContract.authToken
   }
 
+  public authUser(username: string, password: string): Observable<AuthTokenResponseContract> {
+    console.log('Authenticating...')
+    let headers: any = {
+      // 'Authorization': `Bearer ${authRequest.token}`
+    };
+
+    const uri = urlJoin(this.apiUri, "auth");
+
+    const authRequest: AuthViaPasswordRequest = {
+      password: password,
+      username: username
+    }
+
+    const obs = this.http.post<AuthTokenResponseContract>(uri, authRequest, {
+      responseType: 'json',
+      headers: headers
+    })
+
+    obs.subscribe({
+      next: response => {
+        this._cookieService.set("auth_token", response.authToken);
+      }
+    })
+    return obs;
+  }
+
   public async registerUser(authRequest: AuthViaGoogleRequestContract): Promise<void> {
     console.log('Registering...')
     let headers: any = {};
@@ -61,12 +88,12 @@ export class AuthenticationService {
 
 
   public authOrRegister(authRequest: AuthViaGoogleRequestContract) {
-    return from(this.authUser(authRequest)).pipe(
+    return from(this.authUserViaGoogle(authRequest)).pipe(
       catchError((error) => {
         if (error instanceof HttpErrorResponse && error.status === 404) {
           console.log('Account not found, registering...');
           return from(this.registerUser(authRequest)).pipe(
-            switchMap(() => this.authUser(authRequest)),
+            switchMap(() => this.authUserViaGoogle(authRequest)),
           );
         } else {
           return throwError(error);
@@ -147,7 +174,7 @@ export class AuthenticationService {
     // );
   }
 
-  public getToken() : string {
-    return  this._cookieService.get('auth_token')
+  public getToken(): string {
+    return this._cookieService.get('auth_token')
   }
 }

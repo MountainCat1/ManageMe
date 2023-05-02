@@ -15,9 +15,10 @@ import { PublicComponent } from './public/public.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { ProjectsComponent } from './projects/projects.component';
-import { CreateProjectComponent } from './create-project/create-project.component';
 import { ProjectListComponent } from './project-list/project-list.component';
 import { MyAccountBarComponent } from './my-account-bar/my-account-bar.component';
+import {CreateProjectComponent} from "./project-create/create-project.component";
+import { ProjectEditComponent } from './project-edit/project-edit.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { MyAccountBarComponent } from './my-account-bar/my-account-bar.component
     CreateProjectComponent,
     ProjectListComponent,
     MyAccountBarComponent,
+    ProjectEditComponent,
   ],
   imports: [
     BrowserModule,

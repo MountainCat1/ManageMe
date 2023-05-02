@@ -10,7 +10,7 @@
 @import "./spinner";
 
 html {
-  font-size: 14px;
+  font-size: 16px;
 }
 
 :root {
@@ -62,13 +62,5 @@ button {
   &:hover {
     background-color: var(--secondary-color);
     border-color: var(--accent-color);
-  }
-}
-
-a {
-  color: var(--accent-color);
-
-  &:hover {
-    color: var(--secondary-color);
   }
 }

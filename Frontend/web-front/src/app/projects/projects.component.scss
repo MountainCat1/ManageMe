@@ -1,5 +1,6 @@
 @import "/src/scss/button";
 @import "/src/scss/page";
+@import "/src/scss/text";
 
 .project-panel {
   background-color: var(--color-background);
@@ -31,23 +32,4 @@
 .crud-button:hover {
   background-color: var(--color-link-hover);
   color: var(--color-text-accent);
-}
-
-
-.gradient-text {
-  background: var(--gradient-1);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* ====== Default elements ====== */
-/* */
-h1 {
-  font-size: 62px;
-
-  text-align: center;
-
-  background: linear-gradient(90deg, var(--color-button-primary), var(--color-secondary)); /*var(--gradient-3);*/
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
 }

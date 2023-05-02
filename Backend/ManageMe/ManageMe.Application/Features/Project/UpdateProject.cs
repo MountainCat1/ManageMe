@@ -1,4 +1,5 @@
-﻿using Catut;
+﻿using System.Net.NetworkInformation;
+using Catut;
 using ManageMe.Application.Abstractions;
 using ManageMe.Application.Dtos;
 using ManageMe.Domain.Repositories;
@@ -22,12 +23,14 @@ public class UpdateProjectRequestHandler : IResultRequestHandler<UpdateProjectRe
 
     public async Task<Result> Handle(UpdateProjectRequest request, CancellationToken cancellationToken)
     {
-        return await UpdateEntity(request.Dto);
+        return await UpdateEntity(request.Dto, request.TargetProjectId);
     }
 
-    private async Task<Result> UpdateEntity(ProjectDto update)
+    private async Task<Result> UpdateEntity(ProjectDto update, Guid id)
     {
-        await _projectRepository.UpdateAsync(update, update.Id);
+        update.Id = id;
+        
+        await _projectRepository.UpdateAsync(update, id);
 
         await _projectRepository.SaveChangesAsync();
 

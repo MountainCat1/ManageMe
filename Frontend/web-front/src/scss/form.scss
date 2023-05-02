@@ -3,6 +3,8 @@
 
   padding: 1em;
 
+  //width: 30em;
+
   border-radius: 0.5em;
 }
 
@@ -10,19 +12,24 @@
   display: flex;
   flex-wrap: wrap;
 
-  justify-content: space-between;
+  justify-content: space-around;
   align-items: center;
-  width: 50%;
-  margin: auto;
+
+  //margin: auto;
 
   padding: 1em 1em;
+}
+
+.form .input-group > * {
+  width: 12rem;
 }
 
 .form label {
   font-weight: bold;
 }
 
-input[type="text"] {
+input[type="text"],
+input[type="password"] {
   background-color: var(--color-form-input-background);
   border: 1px solid var(--color-form-input-border);
   border-radius: 4px;
@@ -31,7 +38,8 @@ input[type="text"] {
   padding: 8px;
 }
 
-input[type="text"]:focus {
+input[type="text"]:focus,
+input[type="password"]:focus {
   border-color: var(--color-form-input-focus-border);
   outline: none;
 }

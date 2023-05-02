@@ -1,9 +1,18 @@
 <ng-container *ngIf="projects.length > 0; else noProjects">
   <ul class="project-list">
-    <li *ngFor="let project of projects" class="project-list-item">{{ project.name }}</li>
+    <li *ngFor="let project of projects" class="project-list-item">
+      <ng-container *ngTemplateOutlet="projectEntry; context: { name: project.name, id: project.id}"></ng-container>
+    </li>
   </ul>
 </ng-container>
 
 <ng-template #noProjects>
   <p class="no-projects-message">No projects found.</p>
+</ng-template>
+
+<ng-template #projectEntry let-name="name" let-id="id">
+  <span>{{name}}</span>
+  <a routerLink="./{{id}}/edit">Edit</a>
+  <a routerLink="./{{id}}/delete">Delete</a>
+  <a routerLink="./{{id}}/delete">Details</a>
 </ng-template>

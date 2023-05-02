@@ -6,13 +6,13 @@ using ManageMe.Application.Dtos.Responses;
 using ManageMe.Application.Services;
 using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
+using ManageMe.Infrastructure.Generics;
 
 namespace ManageMe.Application.Features.Authentication;
 
-
 public class AuthiViaPassowrdRequest : IResultRequest<AuthTokenResponseContract>
 {
-    public required string Email { get; set; }
+    public required string Username { get; set; }
     public required string Password { get; set; }
 }
 
@@ -24,7 +24,7 @@ public class AuthiViaPassowrdRequestHandler : IResultRequestHandler<AuthiViaPass
 
     public AuthiViaPassowrdRequestHandler(
         ILocalAccountRepository accountRepository,
-        IJwtService jwtService, 
+        IJwtService jwtService,
         IHashingService hashingService)
     {
         _accountRepository = accountRepository;
@@ -35,7 +35,7 @@ public class AuthiViaPassowrdRequestHandler : IResultRequestHandler<AuthiViaPass
     public async Task<Result<AuthTokenResponseContract>> Handle(AuthiViaPassowrdRequest request,
         CancellationToken cancellationToken)
     {
-        return await GetAccount(request.Email)
+        return await GetAccount(request.Username)
             .BindAsync(entity => ValidatePassword(entity, request.Password))
             .BindAsync(GenerateAuthResponse);
     }
@@ -58,9 +58,20 @@ public class AuthiViaPassowrdRequestHandler : IResultRequestHandler<AuthiViaPass
         return Result<AccountEntity>.Success(account);
     }
 
-    private async Task<Result<LocalAccountEntity>> GetAccount(string email)
+    private async Task<Result<LocalAccountEntity>> GetAccount(string username)
     {
-        var account = await _accountRepository.GetOneRequiredAsync(x => x.Email == email);
-        return Result.Success(account);
+        try
+        {
+            var account = await _accountRepository.GetOneRequiredAsync(x => x.Username == username);
+            return Result.Success(account);
+        }
+        catch (ItemNotFoundException ex)
+        {
+            return Result.Failure<LocalAccountEntity>(new UnauthorizedAccessException());
+        }
+        catch (Exception ex)
+        {
+            return Result.Failure<LocalAccountEntity>(ex);
+        }
     }
 }

@@ -98,7 +98,9 @@ if (builder.Environment.IsDevelopment())
 {
     using (var scope = app.Services.CreateScope())
     {
-        new DatabaseInitializer().Seed(scope.ServiceProvider.GetRequiredService<ManageMeDbContext>());
+        new DatabaseInitializer()
+            .Seed(scope.ServiceProvider.GetRequiredService<ManageMeDbContext>(), scope.ServiceProvider)
+            .Wait();
     }
 }
 
