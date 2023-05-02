@@ -1,5 +1,6 @@
 ﻿using System.Linq.Expressions;
 using ManageMe.Domain.Abstractions;
+using ManageMe.Domain.Generics;
 using ManageMe.Infrastructure.Errors.Database;
 using ManageMe.Infrastructure.Extensions;
 using MediatR;
@@ -39,6 +40,42 @@ public class Repository<TEntity, TDbContext> : IRepository<TEntity>
         return entity;
     }
 
+    public virtual async Task<PagedResult<TEntity>> GetPaginatedAsync(
+        Expression<Func<TEntity, bool>>? filter = null,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        int pageNumber = 1,
+        int pageSize = 10,
+        params string[] includeProperties)
+    {
+        IQueryable<TEntity> query = _dbSet;
+
+        if (filter != null)
+        {
+            query = query.Where(filter);
+        }
+
+        foreach (var includeProperty in includeProperties)
+        {
+            query = query.Include(includeProperty);
+        }
+
+        if (orderBy != null)
+        {
+            query = orderBy(query);
+        }
+
+        var totalCount = await query.CountAsync();
+        var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+        var entities = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResult<TEntity>(entities, pageNumber, pageSize, totalPages, totalCount);
+    }
+
+    
     public virtual async Task<IEnumerable<TEntity>> GetAsync(
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,

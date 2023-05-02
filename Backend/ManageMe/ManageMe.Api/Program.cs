@@ -8,6 +8,7 @@ using ManageMe.Application;
 using ManageMe.Application.Features.Authentication;
 using ManageMe.Application.Services;
 using ManageMe.Application.Settings;
+using ManageMe.Domain.Entities;
 using ManageMe.Domain.Repositories;
 using ManageMe.Infrastructure.Contexts;
 using ManageMe.Infrastructure.Repositories;
@@ -49,6 +50,7 @@ services.AddScoped<IAccountRepository, AccountRepository>();
 services.AddScoped<IGoogleAccountRepository, GoogleAccountRepository>();
 services.AddScoped<ILocalAccountRepository, LocalAccountRepository>();
 services.AddScoped<IProjectRepository, ProjectRepository>();
+services.AddScoped<IFunctionalityRepository, FunctionalityRepository>();
 
 services.AddScoped<IGoogleAuthProviderService, GoogleAuthProviderService>();
 services.AddScoped<IHashingService, HashingService>();

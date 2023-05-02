@@ -1,7 +1,14 @@
-﻿using ManageMe.Domain.Abstractions;
+﻿using Catut;
+using ManageMe.Domain.Abstractions;
 
 namespace ManageMe.Domain.Entities;
 
+// Stan (todo, doing, done)
+
+public enum FunctionalityStatus
+{
+    Todo, Doing, Done
+}
 
 public class FunctionalityEntity : Entity
 {
@@ -15,16 +22,16 @@ public class FunctionalityEntity : Entity
     public Guid ProjectId { get; set; }
     public virtual ProjectEntity Project { get; set; }
     
-    public virtual AccountEntity Owner { get; set; }
-    public Guid OwnerId { get; set; }
+    public virtual AccountEntity? Owner { get; set; }
+    public Guid? OwnerId { get; set; }
     
-    public string Status { get; set; }
+    public FunctionalityStatus Status { get; set; }
 
     public virtual IEnumerable<TaskItem> TaskItems { get; set; }
     
     private FunctionalityEntity() { }
 
-    public static FunctionalityEntity Create(string name, string description, int priority, Guid projectId, Guid ownerId, string status)
+    public static async Task<Result<FunctionalityEntity>> Create(string name, string description, int priority, Guid projectId, Guid? ownerId, FunctionalityStatus status)
     {
         return new FunctionalityEntity
         {
