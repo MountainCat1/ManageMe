@@ -23,11 +23,14 @@ import {FunctionalityDetailsComponent} from "./components/functionality-details/
 import {CreateTaskItemComponent} from "./components/task-item-create/task-item-create.component";
 import {TaskItemDetailsComponent} from "./components/task-item-details/task-item-details.component";
 import {TaskItemEditComponent} from "./components/task-item-edit/task-item-edit.component";
-import {AccountListComponent} from "./components/account-list/account-list.component";
 import {AccountsComponent} from "./components/accounts/accounts.component";
 import {AccountDetailsComponent} from "./components/account-details/account-details.component";
 import {AccountEditComponent} from "./components/account-edit/account-edit.component";
 import {AccountCreateComponent} from "./components/account-create/account-create.component";
+import {ForbiddenComponent} from "./components/forbidden/forbidden.component";
+import {roleGuard} from "./services/roleGuard";
+import {AccountRole} from "./entities/account";
+import {ownTaskGuard} from "./services/ownTaskGuard";
 
 const guard: CanActivateFn = (
   route: ActivatedRouteSnapshot,
@@ -72,26 +75,25 @@ const PUBLIC_ROUTES: Routes = [
 
 const SECURE_ROUTES: Routes = [
   {path: 'home', component: HomePageComponent},
+  {path: 'forbidden', component: ForbiddenComponent},
 
   {path: 'accounts', component: AccountsComponent},
-  {path: 'accounts/create', component: AccountCreateComponent},
+  {path: 'accounts/create', component: AccountCreateComponent, canActivate: [roleGuard], data: {roles: [AccountRole.Admin]}},
   {path: 'accounts/:accountId', component: AccountDetailsComponent},
-  {path: 'accounts/:accountId/edit', component: AccountEditComponent},
+  {path: 'accounts/:accountId/edit', component: AccountEditComponent, canActivate: [roleGuard], data: {roles: [AccountRole.Admin]}},
 
+  {path: 'projects', component: ProjectsComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
+  {path: 'projects/create', component: CreateProjectComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps]}},
+  {path: 'projects/:projectId', component: ProjectDetailsComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
+  {path: 'projects/:projectId/edit', component: ProjectEditComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps]}},
 
-  {path: 'projects', component: ProjectsComponent},
-  {path: 'projects/create', component: CreateProjectComponent},
-  {path: 'projects/:projectId', component: ProjectDetailsComponent},
-  {path: 'projects/:projectId/edit', component: ProjectEditComponent},
+  {path: 'projects/:projectId/functionalities/create', component: FunctionalityCreateComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps]}},
+  {path: 'projects/:projectId/functionalities/:functionalityId', component: FunctionalityDetailsComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
+  {path: 'projects/:projectId/functionalities/:functionalityId/edit', component: FunctionalityUpdateComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps]}},
 
-  // {path: 'projects/:projectId/functionalities', component: FunctionalitiesComponent},
-  {path: 'projects/:projectId/functionalities/create', component: FunctionalityCreateComponent},
-  {path: 'projects/:projectId/functionalities/:functionalityId', component: FunctionalityDetailsComponent},
-  {path: 'projects/:projectId/functionalities/:functionalityId/edit', component: FunctionalityUpdateComponent},
-
-  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/create', component: CreateTaskItemComponent},
-  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/:taskId', component: TaskItemDetailsComponent},
-  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/:taskId/edit', component: TaskItemEditComponent},
+  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/create', component: CreateTaskItemComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
+  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/:taskId', component: TaskItemDetailsComponent, canActivate: [roleGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
+  {path: 'projects/:projectId/functionalities/:functionalityId/tasks/:taskId/edit', component: TaskItemEditComponent, canActivate: [roleGuard, ownTaskGuard], data: {roles: [AccountRole.DevOps, AccountRole.Developer]}},
 ]
 
 const APP_ROUTES: Routes = [

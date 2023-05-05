@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TaskItem, TaskState} from "../../entities/taskItem";
 import {TaskItemService} from "../../services/task-item.service";
-import {Observable} from "rxjs";
+import {map, Observable, of, switchMap} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
+import {AccountRole} from "../../entities/account";
+import {AccountService} from "../../services/account.service";
 
 @Component({
   selector: 'app-task-item-list',
@@ -10,6 +12,8 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./task-item-list.component.scss']
 })
 export class TaskItemListComponent implements OnInit {
+  @Output() onDelete = new EventEmitter<null>();
+
   taskItems$!: Observable<TaskItem[]>
 
   todoTasks!: TaskItem[]
@@ -18,7 +22,9 @@ export class TaskItemListComponent implements OnInit {
 
   constructor(private taskItemService: TaskItemService,
               private route: ActivatedRoute,
-              private router : Router) {
+              private router: Router,
+              private accountService: AccountService,
+  ) {
   }
 
   ngOnInit() {
@@ -45,12 +51,30 @@ export class TaskItemListComponent implements OnInit {
   }
 
   deleteEntity(id: string) {
-    this.taskItemService.delete(id).subscribe(x => {
+    this.accountService.getMyAccount().pipe(
+      switchMap(account => {
+        if (account!.role === AccountRole.DevOps) {
+          return this.taskItemService.delete(id);
+        } else {
+          return this.taskItemService.getAllByAssignedUserId(account!.id).pipe(
+            switchMap(tasks => {
+              if (tasks.map(x => x.id).includes(id)) {
+                return this.taskItemService.delete(id);
+              } else {
+                this.router.navigate(['./forbidden']);
+                return of(undefined);
+              }
+            })
+          );
+        }
+      })
+    ).subscribe(() => {
       this.fetchEntityData();
+      this.onDelete.emit();
     });
   }
 
   relativeNavigateTo(path: string) {
-    this.router.navigate([`./${path}`], { relativeTo: this.route });
+    this.router.navigate([`./${path}`], {relativeTo: this.route});
   }
 }

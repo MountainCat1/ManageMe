@@ -1,9 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from 'rxjs';
+import {ActivatedRoute, Router} from '@angular/router';
 
 import {Account, AccountRole, getDisplayName} from '../../entities/account';
-import { AccountService } from '../../services/account.service';
+import {AccountService} from '../../services/account.service';
 
 @Component({
   selector: 'app-account-list',
@@ -35,9 +35,15 @@ export class AccountListComponent implements OnInit {
   }
 
   deleteEntity(id: string) {
-    this.accountService.delete(id).subscribe(() => {
-      this.fetchEntityData();
-    });
+    this.accountService.getMyAccount().subscribe((account) => {
+      if(account!.role !== AccountRole.Admin)
+        this.router.navigate(['./forbidden']);
+      else{
+        this.accountService.delete(id).subscribe(() => {
+          this.fetchEntityData();
+        });
+      }
+    })
   }
 
   relativeNavigateTo(path: string) {

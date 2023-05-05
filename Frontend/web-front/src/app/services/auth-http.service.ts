@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {Observable} from "rxjs";
-import {environment} from "../../../environments/environment";
 import urlJoin from "url-join";
 import {HttpClient} from "@angular/common/http";
 import {AuthenticationService} from "./authentication.service";
+import {environment} from "../../environments/environment";
 
 @Injectable({
   providedIn: 'root'

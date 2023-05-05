@@ -22,7 +22,7 @@
 <ng-template #projectEntry let-name="name" let-id="id">
   <span>{{name}}</span>
   <a routerLink="./{{id}}/edit">Edit</a>
-  <a (click)="deleteProject(id)">Delete</a>
+  <a (click)="deleteEntity(id)">Delete</a>
 
   <ng-container *ngIf="activatedProjectId == id; else inactive">
     <a routerLink="./{{id}}">Details</a>
@@ -36,7 +36,7 @@
 <ng-template #activatedProjectEntry let-name="name" let-id="id">
   <b>{{name}}</b>
   <a routerLink="./{{id}}/edit">Edit</a>
-  <a (click)="deleteProject(id)">Delete</a>
+  <a (click)="deleteEntity(id)">Delete</a>
 
   <ng-container *ngIf="activatedProjectId == id; else inactive">
     <a routerLink="./{{id}}">Details</a>

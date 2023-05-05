@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AccountCreate, AccountService } from '../../services/account.service';
+import {AccountRole} from "../../entities/account";
 
 
 @Component({
@@ -86,4 +87,5 @@ export class AccountCreateComponent implements OnInit {
   }
 
 
+  protected readonly AccountRole = AccountRole;
 }

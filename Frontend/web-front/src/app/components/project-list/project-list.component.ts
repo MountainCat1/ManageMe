@@ -1,6 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {Project} from "../../entities/project";
 import {ProjectService} from "../../services/project.service";
+import {AccountRole} from "../../entities/account";
+import {Router} from "@angular/router";
+import {AccountService} from "../../services/account.service";
 
 @Component({
   selector: 'app-project-list',
@@ -11,7 +14,7 @@ export class ProjectListComponent implements OnInit {
   public projects: Project[] = []
   public activatedProjectId: string | undefined;
 
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService, private router : Router, private accountService : AccountService) {
   }
 
 
@@ -19,10 +22,16 @@ export class ProjectListComponent implements OnInit {
     this.fetchProjects();
   }
 
-  deleteProject(projectId: string) {
-    this.projectService.delete(projectId).subscribe({
-      next: value => {
-        this.fetchProjects()
+  deleteEntity(id: string) {
+    this.accountService.getMyAccount().subscribe((account) => {
+      if(account!.role !== AccountRole.DevOps)
+        this.router.navigate(['./forbidden']);
+      else{
+        this.projectService.delete(id).subscribe({
+          next: value => {
+            this.fetchProjects()
+          }
+        })
       }
     })
   }

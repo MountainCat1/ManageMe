@@ -1,43 +1,44 @@
 import {Component, OnInit, Output} from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, NavigationEnd, Router} from "@angular/router";
 import {AccountService} from "../../services/account.service";
-import {Account} from "../../entities/account";
+import {Account, getDisplayName} from "../../entities/account";
+import {Observable} from "rxjs";
+import {CookieService} from "ngx-cookie-service";
 
 @Component({
   selector: 'app-my-account-bar',
   templateUrl: './my-account-bar.component.html',
   styleUrls: ['./my-account-bar.component.scss']
 })
-export class MyAccountBarComponent implements OnInit{
+export class MyAccountBarComponent implements OnInit {
 
-  @Output()
-  public username : string = "";
-  @Output()
-  public role : string = "";
+  public account$!: Observable<Account | undefined>
 
 
-  constructor(private accountService: AccountService, private route: ActivatedRoute) {
+  constructor(
+    private accountService: AccountService,
+    private route: ActivatedRoute,
+    private cookieService: CookieService,
+    private router: Router,
+  ) {
   }
 
   ngOnInit() {
-    this.route.params.subscribe(params => {
-      this.updateProfile()
-    });
-  }
+    this.account$ = this.accountService.getMyAccount()
 
-  private updateProfile() {
-    this.accountService.getMyAccount().subscribe({
-      next: account => {
-        if(account == undefined)
-          return;
 
-        this.applyUpdate(account)
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        this.account$ = this.accountService.getMyAccount()
       }
     });
   }
 
-  private applyUpdate(account : Account){
-    this.username = account.username;
-    this.role = account.role;
+  protected readonly getDisplayName = getDisplayName;
+
+  logOff() {
+    this.cookieService.delete('auth_token');
+    this.router.navigate(['/sign-in']);
+    this.account$ = this.accountService.getMyAccount()
   }
 }

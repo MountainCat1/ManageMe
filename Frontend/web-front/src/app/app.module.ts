@@ -37,6 +37,7 @@ import { AccountDetailsComponent } from './components/account-details/account-de
 import { AccountEditComponent } from './components/account-edit/account-edit.component';
 import { AccountCreateComponent } from './components/account-create/account-create.component';
 import { AccountTasksComponent } from './components/account-tasks/account-tasks.component';
+import { ForbiddenComponent } from './components/forbidden/forbidden.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +73,7 @@ import { AccountTasksComponent } from './components/account-tasks/account-tasks.
     AccountEditComponent,
     AccountCreateComponent,
     AccountTasksComponent,
+    ForbiddenComponent,
   ],
   imports: [
     BrowserModule,

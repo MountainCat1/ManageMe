@@ -30,7 +30,7 @@
 
     <hr>
     <h2>Tasks</h2>
-    <app-task-item-list/>
+    <app-task-item-list (onDelete)="fetchEntityData()"/>
     <hr>
     <h2>Associated users</h2>
     <app-functionality-associated-account-list [functionalityId]="functionalityId"/>

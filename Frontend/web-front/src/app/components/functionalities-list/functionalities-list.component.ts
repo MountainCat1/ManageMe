@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {FunctionalityService} from "../../services/functionality.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Functionality, FunctionalityStatus} from "../../entities/functionality";
+import {AccountRole} from "../../entities/account";
+import {AccountService} from "../../services/account.service";
 
 @Component({
   selector: 'app-functionalities-list',
@@ -15,11 +17,10 @@ export class FunctionalitiesListComponent {
     { value: FunctionalityStatus.Todo, label: 'Todo' },
     { value: FunctionalityStatus.Doing, label: 'Doing' },
     { value: FunctionalityStatus.Done, label: 'Done' },
-    { value: null, label: 'All' },
   ];
   selectedStatus: FunctionalityStatus | null = null;
 
-  constructor(private functionalityService: FunctionalityService, private route: ActivatedRoute, private router: Router) {
+  constructor(private functionalityService: FunctionalityService, private route: ActivatedRoute, private router: Router, private accountService : AccountService) {
   }
 
 
@@ -30,13 +31,18 @@ export class FunctionalitiesListComponent {
         this.fetchEntities();
       }
     })
-
   }
 
-  deleteEntity(projectId: string) {
-    this.functionalityService.delete(projectId).subscribe({
-      next: value => {
-        this.fetchEntities()
+  deleteEntity(id: string) {
+    this.accountService.getMyAccount().subscribe((account) => {
+      if(account!.role !== AccountRole.DevOps)
+        this.router.navigate(['./forbidden']);
+      else{
+        this.functionalityService.delete(id).subscribe({
+          next: value => {
+            this.fetchEntities()
+          }
+        })
       }
     })
   }

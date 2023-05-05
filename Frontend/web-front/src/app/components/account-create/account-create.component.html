@@ -44,9 +44,9 @@
     <label for="role">Role:</label>
     <select id="role" formControlName="role">
       <option value="">Select a role</option>
-      <option value="devops">DevOps</option>
-      <option value="developer">Developer</option>
-      <option value="admin">Admin</option>
+      <option value="{{AccountRole.DevOps}}">DevOps</option>
+      <option value="{{AccountRole.Developer}}">Developer</option>
+      <option value="{{AccountRole.Admin}}">Admin</option>
     </select>
     <div class="error"></div>
     <div class="error" *ngIf="checkIfShowError('role')">
