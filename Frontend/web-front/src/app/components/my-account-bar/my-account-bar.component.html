@@ -1,0 +1,4 @@
+<div *ngIf="account$ | async as account">
+  <b>{{account.username}}</b> ({{account.role}})
+  <a (click)="logOff()">Log of</a>
+</div>

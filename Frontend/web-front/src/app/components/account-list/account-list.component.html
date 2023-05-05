@@ -1,0 +1,20 @@
+<ng-container *ngIf="accounts$ | async as accounts; else noAccounts">
+  <ul class="entity-list">
+    <li *ngFor="let account of accounts" class="entity-list-item">
+      <ng-container *ngTemplateOutlet="accountEntry; context: { displayName: getDisplayName(account), role: account.role, id: account.id }"></ng-container>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noAccounts>
+  <p class="no-entities-message">No accounts found.</p>
+</ng-template>
+
+<ng-template #accountEntry let-displayName="displayName" let-role="role" let-id="id">
+  <span>{{displayName}}</span>
+  <a routerLink="./{{id}}/edit">Edit</a>
+  <a (click)="deleteEntity(id)">Delete</a>
+  <a routerLink="./{{id}}">Details</a>
+</ng-template>
+
+<br/>

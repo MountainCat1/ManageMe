@@ -1,0 +1,102 @@
+<h1 class="gradient-text">Update Task Item</h1>
+<form class="form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('name')">
+      <div *ngIf="taskForm.get('name')!.errors!.required">
+        Name is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="description">Description:</label>
+    <input id="description" type="text" formControlName="description">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('description')">
+      <div *ngIf="taskForm.get('description')!.errors!.required">
+        Description is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="priority">Priority:</label>
+    <input id="priority" type="number" formControlName="priority">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('priority')">
+      <div *ngIf="taskForm.get('priority')!.errors!.required">
+        Priority is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="estimatedTime">Estimated Time (hours):</label>
+    <input id="estimatedTime" type="number" formControlName="estimatedTime">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('estimatedTime')">
+      <div *ngIf="taskForm.get('estimatedTime')!.errors!.required">
+        Estimated Time is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="workHoursDone">Work hours done:</label>
+    <input id="workHoursDone" type="number" formControlName="workHoursDone">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('workHoursDone')">
+      <div *ngIf="taskForm.get('workHoursDone')!.errors!.required">
+        Work hours done are required
+      </div>
+    </div>
+  </div>
+
+
+  <div class="input-group">
+    <label for="state">State:</label>
+    <select id="state" formControlName="state">
+      <option value="">Select a state</option>
+      <option value="{{ TaskState.Todo }}">{{ TaskState.Todo }}</option>
+      <option value="{{ TaskState.Doing }}">{{ TaskState.Doing }}</option>
+      <option value="{{ TaskState.Done }}">{{ TaskState.Done }}</option>
+    </select>
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('state')">
+      <div *ngIf="taskForm.get('state')!.errors!.required">
+        State is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="assignedUserId">Owner:</label>
+    <select id="assignedUserId" formControlName="assignedUserId">
+      <option value="">Select a account</option>
+      <ng-container *ngIf="accounts$ | async as accounts">
+        <option *ngFor="let account of accounts" [value]="account.id">{{ getDisplayName(account) }}</option>
+      </ng-container>
+
+    </select>
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('assignedUserId')">
+      <div *ngIf="taskForm.get('assignedUserId')!.errors!.required">
+        Owner is required
+      </div>
+    </div>
+  </div>
+  <div class="right-full">
+    <button class="button-small" type="submit">Update Task Item</button>
+  </div>
+</form>
+<div class="dual-ring-spinner" *ngIf="loading"></div>

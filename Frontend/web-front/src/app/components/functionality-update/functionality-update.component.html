@@ -1,0 +1,62 @@
+<h1 class="gradient-text">Update Functionality</h1>
+<form class="form" [formGroup]="functionalityForm" (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('name')">
+      <div *ngIf="functionalityForm.get('name')!.errors!.required">
+        Name is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="description">Description:</label>
+    <input id="description" type="text" formControlName="description">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('description')">
+      <div *ngIf="functionalityForm.get('description')!.errors!.required">
+        Description is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="priority">Priority:</label>
+    <input id="priority" type="number" formControlName="priority">
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('priority')">
+      <div *ngIf="functionalityForm.get('priority')!.errors!.required">
+        Priority is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="ownerId">Owner:</label>
+    <select id="ownerId" formControlName="ownerId">
+      <option value="">None</option>
+      <ng-container *ngIf="accounts$ | async as accounts">
+        <option *ngFor="let account of accounts" [value]="account.id">{{getDisplayName(account)}}</option>
+      </ng-container>
+
+    </select>
+    <div class="error"></div>
+
+    <div class="error" *ngIf="checkIfShowError('ownerId')">
+      <div *ngIf="functionalityForm.get('ownerId')!.errors!.required">
+        Owner is required
+      </div>
+    </div>
+  </div>
+
+  <div class="right-full">
+    <button class="button-small" type="submit">Update Functionality</button>
+  </div>
+</form>
+<div class="dual-ring-spinner" *ngIf="loading"></div>
+

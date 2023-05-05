@@ -1,0 +1,81 @@
+﻿.form {
+  background-color: var(--color-form-background);
+
+  padding: 1em;
+
+  //width: 30em;
+
+  border-radius: 0.5em;
+}
+
+.form .input-group {
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: space-around;
+  align-items: center;
+
+  //margin: auto;
+
+  padding: 1em 1em;
+}
+
+.form .input-group > * {
+  width: 12rem;
+}
+
+.form label {
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="password"] {
+  background-color: var(--color-form-input-background);
+  border: 1px solid var(--color-form-input-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 16px;
+  padding: 8px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+  border-color: var(--color-form-input-focus-border);
+  outline: none;
+}
+
+.error {
+  color: red;
+  width: 100%;
+}
+
+select {
+  background-color: var(--color-form-input-background);
+  border: 1px solid var(--color-form-input-border);
+  border-radius: 4px;
+  color: var(--color-text);
+
+  padding: 8px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+select:focus {
+  border-color: var(--color-form-input-focus-border);
+  outline: none;
+}
+
+input[type="number"] {
+  background-color: var(--color-form-input-background);
+  border: 1px solid var(--color-form-input-border);
+  border-radius: 4px;
+  color: var(--color-text);
+  font-size: 16px;
+  padding: 8px;
+}
+
+input[type="number"]:focus {
+  border-color: var(--color-form-input-focus-border);
+  outline: none;
+}

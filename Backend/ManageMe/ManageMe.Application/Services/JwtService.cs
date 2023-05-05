@@ -2,6 +2,7 @@
 using System.Security.Claims;
 using System.Security.Cryptography;
 using System.Text;
+using Catut;
 using Catut.Configuration;
 using ManageMe.Domain.Entities;
 using Microsoft.Extensions.Options;

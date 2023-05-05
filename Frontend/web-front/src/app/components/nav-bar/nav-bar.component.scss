@@ -1,0 +1,45 @@
+@import "/src/scss/variables";
+
+:host{
+  position: fixed;
+  z-index: 999;
+  top: 0;
+  left: 0;
+
+  width: 100vw;
+
+  background: var(--color-form-background);
+
+  padding: 0.5em;
+
+}
+
+.nav-bar-buttons {
+  display: flex;
+
+  width: 600px;
+
+  margin: auto;
+  justify-content: space-around;
+}
+
+.nav-bar-buttons > a {
+  font-size: 1.3rem;
+}
+
+.account-bar {
+  position: absolute;
+
+  bottom: 0;
+  transform: translateY(-40%);
+
+  right: 50px;
+
+  text-align: center;
+
+  @media (max-width: 1000px) {
+    display: none;
+  }
+}
+
+

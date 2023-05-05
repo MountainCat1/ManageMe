@@ -1,0 +1,20 @@
+<asl-google-signin-button
+  *ngIf="!user"
+  (click)="signInWithGoogle()"
+  type="standard"
+  size="large"
+  theme="filled_blue"
+  logo_alignment="center"
+></asl-google-signin-button>
+
+<!--<div *ngIf="user">-->
+<!--  <img src="{{user.photoUrl}}">-->
+<!--  <div>-->
+<!--    <h4>{{user.name}}</h4>-->
+<!--    <p>{{user.email}}</p>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<button (click)="forceAuth()">Login</button>-->
+<!--<button (click)="forceRegister()">Register</button>-->
+<!--<button (click)="getClaims()">Claims</button>-->

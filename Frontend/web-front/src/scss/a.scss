@@ -1,0 +1,15 @@
+﻿@import "text";
+@import "variables";
+
+a {
+  cursor: pointer; /* changes the cursor to a pointer on hover */
+
+  text-decoration: none;
+
+  color: $color-primary;
+}
+
+a:hover {
+  text-shadow: $color-accent 2px 2px 12px;
+}
+

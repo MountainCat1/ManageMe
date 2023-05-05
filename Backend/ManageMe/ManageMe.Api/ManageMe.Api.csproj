@@ -10,7 +10,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Catut" Version="0.0.9" />
+        <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.1" />
+        <PackageReference Include="Catut" Version="0.0.10" />
         <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />
         <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.5.2" />
         <PackageReference Include="MediatR" Version="12.0.1" />
@@ -27,6 +28,15 @@
     <ItemGroup>
       <ProjectReference Include="..\ManageMe.Application\ManageMe.Application.csproj" />
       <ProjectReference Include="..\ManageMe.Infrastructure\ManageMe.Infrastructure.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\ManageMeDbContextModelSnapshot.cs" />
+      <Compile Remove="Migrations\20230502100011_ggdwadwa.Designer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Migrations" />
     </ItemGroup>
 
 </Project>

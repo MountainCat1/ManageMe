@@ -1,5 +1,6 @@
 ﻿using Catut;
 using FluentValidation;
+using ManageMe.Application.Errors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ManageMe.Api.Extensions;
@@ -60,6 +61,11 @@ public static class ResultExtensions
         if (exception is ValidationException validationException)
         {
             return new BadRequestObjectResult(validationException);
+        }
+        
+        if (exception is NotFoundError)
+        {
+            return new NotFoundResult();
         }
                 
         if (exception is UnauthorizedAccessException ex)

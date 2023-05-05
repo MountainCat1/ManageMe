@@ -1,0 +1,79 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('https://fonts.googleapis.com/css?family=Inter:400,700|Montserrat:400,700&display=swap');
+@import "./variables";
+@import "./pop-up";
+@import "./a";
+@import "./button";
+@import "./form";
+@import "./page";
+@import "./spinner";
+
+html {
+  font-size: 16px;
+}
+
+:root {
+  // Define font families
+  --font-body: 'Inter', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+
+  // Define font sizes
+  --font-size-small: 14px;
+  --font-size-medium: 16px;
+  --font-size-large: 24px;
+}
+
+@mixin background-bursts($colors...) {
+  $angle-increment: 360 / length($colors);
+  $angle: 90deg;
+  background: linear-gradient($angle, $colors);
+
+  @for $i from 2 through length($colors) {
+    $angle: $angle + $angle-increment;
+    background: linear-gradient($angle, $colors, $colors) + ",";;
+  }
+}
+
+body {
+  @include background-bursts($color-primary, $color-secondary, $color-secondary-3);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--font-size-medium);
+
+  //background-image: url('/assets/Background.png');
+  //background-repeat: repeat;
+
+  color: var(--color-text);
+
+
+  padding: 0;
+  margin: 0;
+}
+
+
+// disable stupid shit made by google fsfr
+body #g_a11y_announcement{
+  display: none;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+body {
+
+}
+
+button {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+  border: 2px solid var(--border-color);
+
+  &:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--accent-color);
+  }
+}

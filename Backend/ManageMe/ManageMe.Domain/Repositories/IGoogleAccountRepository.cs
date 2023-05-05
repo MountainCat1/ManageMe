@@ -5,5 +5,4 @@ namespace ManageMe.Domain.Repositories;
 
 public interface IGoogleAccountRepository : IRepository<GoogleAccountEntity>
 {
-    
 }

@@ -1,0 +1,22 @@
+<div class="panel">
+  <form class="form" (ngSubmit)="onSubmit()">
+    <div class="input-group">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" [(ngModel)]="username">
+    </div>
+    <div class="input-group">
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" [(ngModel)]="password">
+    </div>
+    <br/>
+    <div>
+      <div *ngIf="loading">
+        <div class="dual-ring-spinner-small"></div>
+      </div>
+    </div>
+    <div class="right-full">
+      <button class="button-small" type="submit">Login</button>
+    </div>
+  </form>
+</div>
+

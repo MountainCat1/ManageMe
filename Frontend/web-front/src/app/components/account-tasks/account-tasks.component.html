@@ -1,0 +1,56 @@
+
+<ng-container *ngIf="taskItems$ | async as taskItems; else noTaskItems">
+  <div class="kaban-table">
+    <div>
+      <h3>Todo</h3>
+      <div *ngFor="let taskItem of todoTasks" class="kaban-table-column">
+        <ng-container
+          *ngTemplateOutlet="taskItemEntry; context: { name: taskItem.name, id: taskItem.id, desc: taskItem.description }"></ng-container>
+      </div>
+    </div>
+    <div>
+      <h3>Doing</h3>
+      <div *ngFor="let taskItem of doingTasks" class="kaban-table-column">
+        <ng-container
+          *ngTemplateOutlet="taskItemEntry; context: { name: taskItem.name, id: taskItem.id, desc: taskItem.description }"></ng-container>
+      </div>
+    </div>
+    <div>
+      <h3>Done</h3>
+      <div *ngFor="let taskItem of doneTasks" class="kaban-table-column">
+        <ng-container
+          *ngTemplateOutlet="taskItemEntry; context: { name: taskItem.name, id: taskItem.id, desc: taskItem.description }"></ng-container>
+      </div>
+    </div>
+
+  </div>
+  <ul class="entity-list">
+
+  </ul>
+</ng-container>
+
+<ng-template #noTaskItems>
+  <p class="no-entities-message">No task items found.</p>
+</ng-template>
+
+<ng-template #taskItemEntry let-name="name" let-desc="desc" let-id="id">
+  <div class="task-container">
+    <div class="task-name">
+      {{name}}
+      <hr/>
+    </div>
+
+    <span>{{desc}}</span>
+
+    <div class="task-container-options">
+<!--      <a routerLink="./tasks/{{id}}/edit">Edit</a>-->
+<!--      <a (click)="deleteEntity(id)">Delete</a>-->
+<!--      <a routerLink="./tasks/{{id}}">Details</a>-->
+    </div>
+  </div>
+
+</ng-template>
+
+<br/>
+
+

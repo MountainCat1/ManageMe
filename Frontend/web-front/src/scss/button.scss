@@ -1,0 +1,31 @@
+﻿.button {
+  display: inline-block;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, var(--color-button-primary) 0%, var(--color-button-secondary) 100%);
+  color: var(--color-text-accent);
+  font-size: 1rem;
+  font-weight: bold;
+  text-decoration: none;
+  box-shadow: 0 2px 4px black;
+  transition: all 0.1s ease-in-out;
+
+  cursor: pointer;
+}
+
+.button-small {
+  @extend .button;
+
+  font-size: 0.9rem;
+}
+
+.button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.button:active {
+  transform: translateY(2px);
+  outline: none;
+  //box-shadow: 0 0 0 3px var(--color-form-input-focus-border);
+}

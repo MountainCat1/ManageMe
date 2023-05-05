@@ -1,0 +1,50 @@
+
+
+<li *ngFor="let project of GetActivatedProjects" class="entity-list-item">
+  <ng-container *ngTemplateOutlet="activatedProjectEntry; context: { name: project.name, id: project.id }"></ng-container>
+</li>
+
+<hr/>
+<br/>
+
+<ng-container *ngIf="projects.length > 0; else noProjects">
+  <ul class="entity-list">
+    <li *ngFor="let project of GetNotActivatedProjects" class="entity-list-item">
+      <ng-container *ngTemplateOutlet="projectEntry; context: { name: project.name, id: project.id }"></ng-container>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noProjects>
+  <p class="no-entities-message">No projects found.</p>
+</ng-template>
+
+<ng-template #projectEntry let-name="name" let-id="id">
+  <span>{{name}}</span>
+  <a routerLink="./{{id}}/edit">Edit</a>
+  <a (click)="deleteEntity(id)">Delete</a>
+
+  <ng-container *ngIf="activatedProjectId == id; else inactive">
+    <a routerLink="./{{id}}">Details</a>
+  </ng-container>
+  <ng-template #inactive>
+    <a (click)="activateProject(id)">Activate</a>
+  </ng-template>
+
+</ng-template>
+
+<ng-template #activatedProjectEntry let-name="name" let-id="id">
+  <b>{{name}}</b>
+  <a routerLink="./{{id}}/edit">Edit</a>
+  <a (click)="deleteEntity(id)">Delete</a>
+
+  <ng-container *ngIf="activatedProjectId == id; else inactive">
+    <a routerLink="./{{id}}">Details</a>
+  </ng-container>
+  <ng-template #inactive>
+    <a (click)="activateProject(id)">Activate</a>
+  </ng-template>
+
+</ng-template>
+
+

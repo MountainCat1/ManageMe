@@ -1,15 +1,18 @@
 import {Injectable} from '@angular/core';
 import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "src/environments/environment";
-import {firstValueFrom} from "rxjs";
+import {catchError, firstValueFrom, from, Observable, of, switchMap, throwError} from "rxjs";
 import 'url-join';
 import urlJoin from "url-join";
-import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
-import {AuthTokenResponseContract} from "../contracts/authTokenResponseContract";
-import {GetClaimsResponseContract} from "../contracts/getClaimsResponseContract";
-import {ClaimDto} from "../contracts/dtos/claimDto";
+import {AuthViaGoogleRequestContract} from "../components/contracts/authViaGoogleRequestContract";
+import {AuthTokenResponseContract} from "../components/contracts/authTokenResponseContract";
+import {Account} from "../entities/account";
+import {AuthViaPasswordRequest} from "../components/contracts/authViaPasswordRequest";
+import {AccountService} from "./account.service";
+import {GetClaimsResponseContract} from "../components/contracts/getClaimsResponseContract";
+import {ClaimDto} from "../components/contracts/dtos/claimDto";
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +20,7 @@ import {ClaimDto} from "../contracts/dtos/claimDto";
 export class AuthenticationService {
   private apiUri = environment.apiEndpoint;
 
-  constructor(private _cookieService: CookieService, private http: HttpClient) {
+  constructor(private _cookieService: CookieService, private http: HttpClient, private accountService : AccountService) {
   }
 
   public getUser(): SocialUser | undefined {
@@ -26,46 +29,93 @@ export class AuthenticationService {
     return undefined;
   }
 
-  public async authUser(authRequest: AuthViaGoogleRequestContract): Promise<string | undefined> {
-    try {
-      // Fetch user token from backend
-      let headers: any = {
-        // 'Authorization': `Bearer ${authRequest.token}`
-      };
+  public async authUserViaGoogle(authRequest: AuthViaGoogleRequestContract): Promise<string | undefined> {
+    console.log('Authenticating...')
+    let headers: any = {
+      // 'Authorization': `Bearer ${authRequest.token}`
+    };
 
-      let responseContract = await firstValueFrom(this.http.post<AuthTokenResponseContract>(urlJoin(this.apiUri, "auth/google"), authRequest, {
-        responseType: 'json',
-        headers: headers
-      }));
+    const uri = urlJoin(this.apiUri, "auth/google");
 
-      // Set token to cookies
-      this._cookieService.set("auth_token", responseContract.authToken);
+    let responseContract = await firstValueFrom(this.http.post<AuthTokenResponseContract>(uri, authRequest, {
+      responseType: 'json',
+      headers: headers
+    }));
 
-      // Return token
-      return responseContract.authToken
+    // Set token to cookies
+    this._cookieService.set("auth_token", responseContract.authToken);
 
-    } catch (error) {
-      console.error(error);
-      return undefined;
+    // Return token
+    return responseContract.authToken
+  }
+
+  public authUser(username: string, password: string): Observable<Account> {
+    console.log('Authenticating...')
+    let headers: any = {
+      // 'Authorization': `Bearer ${authRequest.token}`
+    };
+
+    const uri = urlJoin(this.apiUri, "auth");
+
+    const authRequest: AuthViaPasswordRequest = {
+      password: password,
+      username: username
     }
+
+    const obs = this.accountService.getByUsername(username);
+
+    obs.subscribe({
+      next: account => {
+        this._cookieService.set("auth_token", account.id)
+      }
+    });
+
+    return obs;
   }
 
   public async registerUser(authRequest: AuthViaGoogleRequestContract): Promise<void> {
-    try {
-      let headers: any = {};
+    console.log('Registering...')
+    let headers: any = {};
 
-      let url = urlJoin(this.apiUri, "auth/google/register");
-      let response = await firstValueFrom(this.http.post(url,
-        authRequest,
-        {
-          headers: headers
-        }));
-
-    } catch (error) {
-      console.error(error);
-      return;
-    }
+    let url = urlJoin(this.apiUri, "auth/google/register");
+    let response = await firstValueFrom(this.http.post(url,
+      authRequest,
+      {
+        headers: headers
+      }));
   }
+
+
+  public authOrRegister(authRequest: AuthViaGoogleRequestContract) {
+    return from(this.authUserViaGoogle(authRequest)).pipe(
+      catchError((error) => {
+        if (error instanceof HttpErrorResponse && error.status === 404) {
+          console.log('Account not found, registering...');
+          return from(this.registerUser(authRequest)).pipe(
+            switchMap(() => this.authUserViaGoogle(authRequest)),
+          );
+        } else {
+          return throwError(error);
+        }
+      }),
+    );
+  }
+
+  // public async authOrRegister(authRequest: AuthViaGoogleRequestContract): Promise<void> {
+  //   try {
+  //     await this.authUser(authRequest);
+  //   } catch (error) {
+  //     if (error instanceof HttpErrorResponse && error.status === 404) {
+  //       console.log('Account not found, registering...')
+  //       await this.registerUser(authRequest);
+  //       await this.authUser(authRequest);
+  //       return;
+  //     }
+  //
+  //     console.error(error);
+  //     return;
+  //   }
+  // }
 
   public async getClaims(): Promise<ClaimDto[] | undefined> {
     try {
@@ -87,5 +137,43 @@ export class AuthenticationService {
       console.error(error);
       return undefined;
     }
+  }
+
+  logout(): void {
+    // Remove user authentication data from storage
+    localStorage.removeItem('auth_token');
+  }
+
+  isLoggedIn(): boolean {
+    // Check if user authentication data exists in storage
+    return !!localStorage.getItem('auth_token');
+  }
+
+  hasAuthToken(): boolean {
+    return !!this._cookieService.get("auth_token");
+  }
+
+  checkLogin(): Observable<boolean> {
+
+    if (!this.hasAuthToken())
+      return of(false)
+
+
+    return of(true);
+    // Make an API request to check if the user is logged in
+    // return this.http.get<boolean>(`${this.apiUri}/check-login`).pipe(
+    //   map((response) => {
+    //     // User is logged in
+    //     return response;
+    //   }),
+    //   catchError(() => {
+    //     // User is not logged in
+    //     return of(false);
+    //   })
+    // );
+  }
+
+  public getToken(): string {
+    return this._cookieService.get('auth_token')
   }
 }

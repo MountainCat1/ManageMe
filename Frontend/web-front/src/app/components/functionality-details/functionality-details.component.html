@@ -1,0 +1,39 @@
+<ng-container *ngIf="functionality$ | async as functionality">
+
+  <h1>{{ functionality?.name }}</h1>
+
+  <div>
+    <h2>{{ functionality.name }}</h2>
+    <p>{{ functionality.description }}</p>
+    <ul>
+      <li><strong>Priority:</strong> {{ functionality.priority }}</li>
+      <li *ngIf="project$ | async as project"><strong>Project:</strong> {{ project.name }}</li>
+      <li><strong>Owner:</strong> {{ (owner$ | async) ? getDisplayName((owner$ | async)!) : 'None' }}</li>
+      <br/>
+      <li><strong>Status:</strong> {{ functionality.status }}</li>
+      <br/>
+      <li><strong>Added date:</strong> {{ functionality.addDate | date}}</li>
+      <li><strong>Started date:</strong> {{ (functionality.startDate | date) ?? 'Not started'}}</li>
+
+      <br/>
+      <li><strong>Estimated time:</strong> {{ estimatedTime$ | async }} hours</li>
+      <li><strong>Work hours done:</strong> {{ workHours$ | async }} hours</li>
+    </ul>
+    <div class="right-full" *ngIf="functionality.status !== FunctionalityStatus.Done">
+      <button
+        class="button-small"
+        (click)="markAsDone()"
+      >Set as done
+      </button>
+    </div>
+
+
+    <hr>
+    <h2>Tasks</h2>
+    <app-task-item-list (onDelete)="fetchEntityData()"/>
+    <hr>
+    <h2>Associated users</h2>
+    <app-functionality-associated-account-list [functionalityId]="functionalityId"/>
+  </div>
+</ng-container>
+
