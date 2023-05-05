@@ -1,0 +1,64 @@
+<h1 class="gradient-text">Create a Task Item</h1>
+<form class="form" [formGroup]="taskForm" (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name">
+    <div class="error"></div>
+
+    <div
+      class="error"
+      *ngIf="checkIfShowError('name')">
+      <div *ngIf="taskForm.get('name')!.errors!.required">
+        Name is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="description">Description:</label>
+    <input id="description" type="text" formControlName="description">
+    <div class="error"></div>
+
+    <div
+      class="error"
+      *ngIf="checkIfShowError('description')">
+      <div *ngIf="taskForm.get('description')!.errors!.required">
+        Description is required
+      </div>
+
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="priority">Priority:</label>
+    <input id="priority" type="number" formControlName="priority">
+    <div class="error"></div>
+
+    <div
+      class="error"
+      *ngIf="checkIfShowError('priority')">
+      <div *ngIf="taskForm.get('priority')!.errors!.required">
+        Priority is required
+      </div>
+    </div>
+  </div>
+
+  <div class="input-group">
+    <label for="estimatedTime">Estimated Time:</label>
+    <input id="estimatedTime" type="number" formControlName="estimatedTime">
+    <div class="error"></div>
+
+    <div
+      class="error"
+      *ngIf="checkIfShowError('estimatedTime')">
+      <div *ngIf="taskForm.get('estimatedTime')!.errors!.required">
+        Estimated Time is required
+      </div>
+    </div>
+  </div>
+
+  <div class="right-full">
+    <button class="button-small" type="submit">Create Task Item</button>
+  </div>
+</form>
+<div class="dual-ring-spinner" *ngIf="loading"></div>

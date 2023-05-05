@@ -1,0 +1,40 @@
+
+<select [(ngModel)]="selectedStatus" (ngModelChange)="fetchEntities()">
+  <option [ngValue]="null">All</option>
+  <option *ngFor="let option of statusOptions" [value]="option.value">
+    {{ option.label }}
+  </option>
+</select>
+
+<ng-container *ngIf="functionalities.length > 0; else noFunctionalities">
+  <ul class="entity-list">
+    <li *ngFor="let functionality of functionalities" class="entity-list-item">
+      <ng-container *ngTemplateOutlet="functionalityEntry; context:
+      {
+        name: functionality.name,
+        id: functionality.id ,
+        status: functionality.status
+      }"></ng-container>
+    </li>
+  </ul>
+</ng-container>
+
+<ng-template #noFunctionalities>
+  <p class="no-entities-message">No functionalities found.</p>
+</ng-template>
+
+<ng-template #functionalityEntry let-name="name" let-id="id" let-status="status">
+  <span>{{name}} ({{status}})</span>
+  <a routerLink="./functionalities/{{id}}/edit">Edit</a>
+  <a (click)="deleteEntity(id)">Delete</a>
+  <a routerLink="./functionalities/{{id}}">Details</a>
+</ng-template>
+
+<br/>
+
+<div class="right-full">
+  <button
+    class="button-small"
+    (click)="relativeNavigateTo('functionalities/create')"
+  >Create Functionality</button>
+</div>

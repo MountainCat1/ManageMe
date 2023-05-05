@@ -1,0 +1,21 @@
+<h1>{{project.name}}</h1>
+
+<div>
+  <h2>{{ project.name }}</h2>
+  <p>{{ project.description }}</p>
+  <ul>
+    <li><strong>Start Time:</strong> {{ project.startTime | date }}</li>
+    <li *ngIf="project.endTime"><strong>End Time:</strong> {{ project.endTime | date }}</li>
+    <li><strong>Estimated Time:</strong> {{ (estimatedDuration$ | async) ?? 0 }} hours</li>
+    <li><strong>Work Hours Done:</strong> {{ (workHoursDone$ | async) ?? 0 }} hours</li>
+  </ul>
+</div>
+
+
+
+<hr>
+<h2>Functionalities</h2>
+<app-functionalities-list/>
+<hr>
+<h2>Associated users</h2>
+<app-project-associated-account-list [projectId]="projectId!"/>

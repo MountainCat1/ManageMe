@@ -3,15 +3,16 @@ import {SocialUser} from "@abacritt/angularx-social-login";
 import {CookieService} from "ngx-cookie-service";
 import {HttpClient, HttpErrorResponse, HttpHeaders} from "@angular/common/http";
 import {environment} from "src/environments/environment";
-import {catchError, delay, firstValueFrom, from, map, NotFoundError, Observable, of, switchMap, throwError} from "rxjs";
+import {catchError, firstValueFrom, from, Observable, of, switchMap, throwError} from "rxjs";
 import 'url-join';
 import urlJoin from "url-join";
-import {AuthViaGoogleRequestContract} from "../contracts/authViaGoogleRequestContract";
-import {AuthTokenResponseContract} from "../contracts/authTokenResponseContract";
-import {GetClaimsResponseContract} from "../contracts/getClaimsResponseContract";
-import {ClaimDto} from "../contracts/dtos/claimDto";
-import {augmentIndexHtml} from "@angular-devkit/build-angular/src/utils/index-file/augment-index-html";
-import {AuthViaPasswordRequest} from "../contracts/authViaPasswordRequest";
+import {AuthViaGoogleRequestContract} from "../components/contracts/authViaGoogleRequestContract";
+import {AuthTokenResponseContract} from "../components/contracts/authTokenResponseContract";
+import {Account} from "../entities/account";
+import {AuthViaPasswordRequest} from "../components/contracts/authViaPasswordRequest";
+import {AccountService} from "./account.service";
+import {GetClaimsResponseContract} from "../components/contracts/getClaimsResponseContract";
+import {ClaimDto} from "../components/contracts/dtos/claimDto";
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +20,7 @@ import {AuthViaPasswordRequest} from "../contracts/authViaPasswordRequest";
 export class AuthenticationService {
   private apiUri = environment.apiEndpoint;
 
-  constructor(private _cookieService: CookieService, private http: HttpClient) {
+  constructor(private _cookieService: CookieService, private http: HttpClient, private accountService : AccountService) {
   }
 
   public getUser(): SocialUser | undefined {
@@ -48,7 +49,7 @@ export class AuthenticationService {
     return responseContract.authToken
   }
 
-  public authUser(username: string, password: string): Observable<AuthTokenResponseContract> {
+  public authUser(username: string, password: string): Observable<Account> {
     console.log('Authenticating...')
     let headers: any = {
       // 'Authorization': `Bearer ${authRequest.token}`
@@ -61,16 +62,14 @@ export class AuthenticationService {
       username: username
     }
 
-    const obs = this.http.post<AuthTokenResponseContract>(uri, authRequest, {
-      responseType: 'json',
-      headers: headers
-    })
+    const obs = this.accountService.getByUsername(username);
 
     obs.subscribe({
-      next: response => {
-        this._cookieService.set("auth_token", response.authToken);
+      next: account => {
+        this._cookieService.set("auth_token", account.id)
       }
-    })
+    });
+
     return obs;
   }
 

@@ -1,0 +1,18 @@
+<ng-container *ngIf="account$ | async as account">
+
+  <h1>{{ account.username }}</h1>
+
+  <div>
+    <h2>{{ account.name }} {{ account.surname }}</h2>
+    <p><strong>Role:</strong> {{ account.role }}</p>
+    <ul>
+      <li><strong>Username:</strong> {{ account.username }}</li>
+      <li><strong>Name:</strong> {{ account.name }}</li>
+      <li><strong>Surname:</strong> {{ account.surname }}</li>
+      <li><strong>ID:</strong> {{ account.id }}</li>
+    </ul>
+  </div>
+</ng-container>
+
+<h3>Assigned tasks</h3>
+<app-account-tasks/>

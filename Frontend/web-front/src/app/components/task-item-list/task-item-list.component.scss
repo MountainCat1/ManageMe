@@ -1,0 +1,37 @@
+@import "src/scss/entityList";
+@import "src/scss/styles";
+
+.task-container {
+  background: $color-form-background;
+
+  border-radius: 1em;
+
+  padding: 0.7em;
+
+  display: grid;
+  grid-template-columns: 1fr;
+}
+.task-container-options {
+  display: flex;
+  justify-content: space-evenly;
+
+  margin-top: 1em;
+}
+
+.task-name {
+  font-weight: bold;
+}
+
+.kaban-table {
+  display: grid;
+
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 1em;
+
+}
+
+.kaban-table-column {
+  & > * {
+    margin-top: 0.7em;
+  }
+}

@@ -1,0 +1,62 @@
+<h1 class="gradient-text">Create an Account</h1>
+<form class="form" [formGroup]="accountForm" (ngSubmit)="onSubmit()">
+  <div class="input-group">
+    <label for="username">Username:</label>
+    <input id="username" type="text" formControlName="username">
+    <div class="error"></div>
+    <div class="error" *ngIf="checkIfShowError('username')">
+      <div *ngIf="accountForm.get('username')!.errors!.required">
+        Username is required
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="name">Name:</label>
+    <input id="name" type="text" formControlName="name">
+    <div class="error"></div>
+    <div class="error" *ngIf="checkIfShowError('name')">
+      <div *ngIf="accountForm.get('name')!.errors!.required">
+        Name is required
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="surname">Surname:</label>
+    <input id="surname" type="text" formControlName="surname">
+    <div class="error"></div>
+    <div class="error" *ngIf="checkIfShowError('surname')">
+      <div *ngIf="accountForm.get('surname')!.errors!.required">
+        Surname is required
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="password">Password:</label>
+    <input id="password" type="password" formControlName="password">
+    <div class="error"></div>
+    <div class="error" *ngIf="checkIfShowError('password')">
+      <div *ngIf="accountForm.get('password')!.errors!.required">
+        Password is required
+      </div>
+    </div>
+  </div>
+  <div class="input-group">
+    <label for="role">Role:</label>
+    <select id="role" formControlName="role">
+      <option value="">Select a role</option>
+      <option value="devops">DevOps</option>
+      <option value="developer">Developer</option>
+      <option value="admin">Admin</option>
+    </select>
+    <div class="error"></div>
+    <div class="error" *ngIf="checkIfShowError('role')">
+      <div *ngIf="accountForm.get('role')!.errors!.required">
+        Role is required
+      </div>
+    </div>
+  </div>
+  <div class="right-full">
+    <button class="button-small" type="submit">Create Account</button>
+  </div>
+</form>
+<div class="dual-ring-spinner" *ngIf="loading"></div>

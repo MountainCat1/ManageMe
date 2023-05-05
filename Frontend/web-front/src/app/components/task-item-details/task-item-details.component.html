@@ -1,0 +1,23 @@
+<h1>{{ task.name }}</h1>
+
+<div>
+  <h2>{{ task.name }}</h2>
+  <p>{{ task.description }}</p>
+  <ul>
+    <li><strong>Priority:</strong> {{ task.priority }}</li>
+    <li><strong>Estimated Time:</strong> {{ task.estimatedTime }} hours</li>
+    <li><strong>Work hours done:</strong> {{ task.workHoursDone }} hours</li>
+    <li><strong>State:</strong> {{ task.state }}</li>
+    <li><strong>Added Date:</strong> {{ task.addedDate | date }}</li>
+
+    <li><strong>Assigned User ID:</strong> {{ task.assignedUserId }}</li>
+    <li><strong>Functionality ID:</strong> {{ task.functionalityId }}</li>
+    <br/>
+    <li *ngIf="project$ | async as project"><strong>Project:</strong> {{ project.name }}</li>
+    <li *ngIf="functionality$ | async as functionality"><strong>Functionality:</strong> {{ functionality.name }}</li>
+    <li><strong>Assigned user:</strong> {{ (account$ | async)?.username || 'None' }}</li>
+    <br/>
+    <li *ngIf="task.startedDate"><strong>Started Date:</strong> {{ task.startedDate | date }}</li>
+    <li *ngIf="task.completedDate"><strong>Completed Date:</strong> {{ task.completedDate | date }}</li>
+  </ul>
+</div>
