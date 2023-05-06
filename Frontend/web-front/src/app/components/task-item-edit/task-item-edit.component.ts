@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {TaskItem, TaskItemFactory, TaskState} from "../../entities/taskItem";
+import {TaskItem, TaskState} from "../../entities/taskItem";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 import {map, Observable, switchMap} from "rxjs";
 import {Functionality} from "../../entities/functionality";
@@ -7,8 +7,7 @@ import {TaskItemService} from "../../services/task-item.service";
 import {AccountService} from "../../services/account.service";
 import {FunctionalityService} from "../../services/functionality.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Account, getDisplayName} from "../../entities/account";
-import {TaskItemDetailsComponent} from "../task-item-details/task-item-details.component";
+import {Account, AccountRole, getDisplayName} from "../../entities/account";
 
 @Component({
   selector: 'app-task-item-edit',
@@ -59,7 +58,9 @@ export class TaskItemEditComponent implements OnInit {
       this.taskForm.patchValue(taskItem);
     });
 
-    this.accounts$ = this.accountService.getAll();
+    this.accounts$ = this.accountService.getAll().pipe(map(accounts => {
+      return accounts.filter(x => x.role === AccountRole.Developer);
+    }));
   }
 
   public checkIfShowError(propName: string): boolean {
