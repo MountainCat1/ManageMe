@@ -39,7 +39,7 @@ export class TaskItemEditComponent implements OnInit {
       priority: [1, Validators.required],
       estimatedTime: [1, Validators.required],
       state: [TaskState.Todo, Validators.required],
-      assignedUserId: ['', ],
+      assignedUserId: ['',],
       functionalityId: ['', Validators.required],
       workHoursDone: ['', Validators.required],
     });
@@ -47,7 +47,7 @@ export class TaskItemEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.taskItem$ = this.route.params.pipe(
-      map(params => ({ taskId: params.taskId, functionalityId: params.functionalityId })),
+      map(params => ({taskId: params.taskId, functionalityId: params.functionalityId})),
       switchMap((params) => {
         return this.taskItemService.getById(params.taskId);
       })
@@ -94,7 +94,7 @@ export class TaskItemEditComponent implements OnInit {
   }
 
   public goBack(): void {
-    this.router.navigate(['../../../'], { relativeTo: this.route });
+    this.router.navigate(['../../../'], {relativeTo: this.route});
   }
 
   public get allErrors(): string[] {
